@@ -11,4 +11,4 @@ function getEnvironment() {
 
 let Environment = getEnvironment();
 
-module.exports = Environment;
+export default Environment;

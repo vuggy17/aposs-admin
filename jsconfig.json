@@ -28,9 +28,12 @@
             "routes/*": [
                 "./src/routes/*"
             ],
+            "lib/*": [
+                "./src/lib/*"
+            ],
             "environment/*": [
-                "./environment/*"
-            ]
+                "./src/environment/*"
+            ],
         },
     },
     "include": [

@@ -2,6 +2,8 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const webpack = require("webpack");
 const { resolve } = require("path");
+const dotenv = require("dotenv").config({ path: __dirname + "/.env" });
+const isDevelopment = process.env.NODE_ENV !== "production";
 
 module.exports = ({ mode } = { mode: "production" }) => {
   console.log(`mode is: ${mode}`);
@@ -63,8 +65,13 @@ module.exports = ({ mode } = { mode: "production" }) => {
         favicon: "./public/favicon.ico",
         manifest: "./public/manifest.json",
       }),
-      new webpack.HotModuleReplacementPlugin(),
-    ],
+      new webpack.DefinePlugin({
+        "process.env": JSON.stringify(dotenv.parsed),
+        "process.env.NODE_ENV": JSON.stringify(
+          isDevelopment ? "development" : "production"
+        ),
+      }),
+    ].filter(Boolean),
     devServer: {
       open: true,
       historyApiFallback: true,

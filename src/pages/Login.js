@@ -1,16 +1,15 @@
 import React, { Component } from "react";
-import { Form, Input, Button, Checkbox, Divider } from "antd";
+import { Form, Input, Button, Checkbox } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import axios from "axios";
-
+import axios from "lib/axios/Interceptor";
 export class Login extends Component {
+  getCategory() {}
   onFinish() {
-    // alert("submiting form");
-
-    axios.get("/detail_category").then((res) => {
-      console.log(res);
+    axios.get("/api/v1/products").then((res) => {
+      console.log(res.data);
     });
   }
+
   render() {
     return (
       <div className="flex w-full h-screen items-center justify-center">
