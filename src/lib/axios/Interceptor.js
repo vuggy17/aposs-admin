@@ -5,10 +5,6 @@ import { notification } from "antd";
 import { STATUS_ERROR } from "../../api/ApiStatus";
 import { LOGIN } from "api/EndPoint";
 import Environment from "environment/index";
-//  if (axiosRequest)
-//     axiosRequest.cancel()
-
-//   axiosRequest = axios.CancelToken.source()
 
 const axiosInstance = axios.create();
 
@@ -56,6 +52,7 @@ function handleError(code = 0, message) {
       message = "Internal server error, please contact administrator";
       break;
     default:
+      // if you want to use a default message instead of browser error message for unhandled error
       // message = "Unexpected error";
       break;
   }

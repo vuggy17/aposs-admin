@@ -1,3 +1,6 @@
+import Categories from "components/Categories";
+import Dashboard from "components/Dashboard";
+import Products from "components/Products";
 import Blocked from "pages/Blocked";
 import Home from "pages/Home";
 import Login from "pages/Login";
@@ -13,7 +16,12 @@ import {
 } from "react-router-dom";
 import { useAuth } from "util/hooks";
 
-import { BLOCKED_ACCESS, LOGIN, PAGE_NOT_FOUND } from "./route.config";
+import {
+  BLOCKED_ACCESS,
+  CATEGORY_MANAGEMENT,
+  LOGIN,
+  PRODUCT_MANAGEMENT,
+} from "./route.config";
 
 export default function AppRoute() {
   return (
@@ -21,17 +29,14 @@ export default function AppRoute() {
       <BrowserRouter>
         <Routes>
           {/* //wraper for all component */}
-          <Route
-            path="/"
-            element={
-              <GuardedRoute>
-                <Home />
-              </GuardedRoute>
-            }
-          ></Route>
+          <Route path="/" element={<Home />}>
+            <Route index element={<Dashboard />} />
+            <Route path={CATEGORY_MANAGEMENT} element={<Categories />} />
+            <Route path={PRODUCT_MANAGEMENT} element={<Products />} />
+            <Route path={BLOCKED_ACCESS} element={<Blocked />} />
+          </Route>
           <Route path={LOGIN} element={<Login />} />
-          <Route path={BLOCKED_ACCESS} element={<Blocked />} />
-          <Route path={PAGE_NOT_FOUND} element={<PageNotFound />} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
     </div>
