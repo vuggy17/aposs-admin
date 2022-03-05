@@ -18,6 +18,11 @@ import "./Order.css"
 
 export default function Order() {
 
+  const pages = [
+    { url: "#", title: "Home" },
+    { url: ORDER_MANAGEMENT, title: "Order" },
+  ];
+
   const [products, setProducts] = useState(dataProducts);
   const [orderList, setOrderList] = useState(dataOrder);
 
@@ -128,7 +133,12 @@ export default function Order() {
 
   return (
     <div>
-      <h1 className="hd__order font-semibold text-white text-center">My order</h1>
+      <div className="bg-white p-9 pl-6 pt-6">
+        <Breadcrumb pages={pages} />
+        <div className="pt-6">
+          <h2>Order</h2>
+        </div>
+      </div>
       <div className=" mt-6 mb-4 m-auto w-1/2">
         <Input.Search
           onChange={useDebounce(onSearch)}
