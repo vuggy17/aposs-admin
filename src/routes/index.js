@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { WORKSPACE } from "./route.config";
 import Categories from "components/Categories/Categories";
 import Dashboard from "components/Dashboard/Dashboard";
@@ -9,8 +8,6 @@ import Loading from "pages/Loading";
 import Login from "pages/Login";
 import PageNotFound from "pages/PageNotFound";
 
-=======
->>>>>>> 37a78dd2ff8ec262970734e76ec30ce722bfe3ee
 import React from "react";
 import {
   Route,
