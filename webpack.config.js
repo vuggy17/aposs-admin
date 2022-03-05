@@ -18,10 +18,27 @@ module.exports = ({ mode } = { mode: "production" }) => {
     module: {
       rules: [
         {
-          test: /\.jpe?g|png$/,
+          test: /\.jpe?g|png|svg$/,
           exclude: /node_modules/,
-          use: ["url-loader", "file-loader?name=[name].[ext]"],
+          // loader: "url-loader",
+          use: [
+            // { loader: "url-loader" },
+            {
+              loader: "file-loader",
+              options: {
+                name: "[path][name].[ext]",
+                outputPath: "public/img",
+              },
+            },
+          ],
         },
+        // {
+        //   test: /\.(jpe?g|png|gif|svg)$/i,
+        //   exclude: /node_modules/,
+        //   options: {
+        //     name: "/public/icons/[name].[ext]",
+        //   },
+        // },
         {
           test: /\.(js|jsx)$/,
           exclude: /node_modules/,

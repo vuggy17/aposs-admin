@@ -1,3 +1,13 @@
+import { WORKSPACE } from "./route.config";
+import Categories from "components/Categories/Categories";
+import Dashboard from "components/Dashboard/Dashboard";
+import Products from "components/Products";
+import Blocked from "pages/Blocked";
+import Home from "pages/Home";
+import Loading from "pages/Loading";
+import Login from "pages/Login";
+import PageNotFound from "pages/PageNotFound";
+
 import React from "react";
 import {
   Route,
@@ -15,6 +25,7 @@ import {
   PRODUCT_MANAGEMENT,
   ORDER_MANAGEMENT,
 } from "./route.config";
+import Workspace from "components/Dashboard/Workspace";
 
 import Login from "pages/Login";
 import Home from "pages/Home";
@@ -39,6 +50,8 @@ export default function AppRoute() {
             <Route path={PRODUCT_MANAGEMENT} element={<Products />} />
             <Route path={ORDER_MANAGEMENT} element={<Order />} />
             <Route path={BLOCKED_ACCESS} element={<Blocked />} />
+            <Route path={WORKSPACE} element={<Workspace />} />
+            <Route path="test" element={<Loading />} />
           </Route>
           <Route path={LOGIN} element={<Login />} />
           <Route path="*" element={<PageNotFound />} />

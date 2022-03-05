@@ -3,12 +3,17 @@ import { Form, Input, Button, Checkbox } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import axios from "lib/axios/Interceptor";
 export class Login extends Component {
+  state = {
+    cc: null,
+  };
   getCategory() {}
-  onFinish() {
+  onFinish = () => {
     axios.get("/api/v1/products").then((res) => {
-      console.log(res.data);
+      this.setState({ cc: "dsa" }, () => {
+        console.log(this.state.cc);
+      });
     });
-  }
+  };
 
   render() {
     return (
