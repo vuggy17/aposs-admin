@@ -43,6 +43,10 @@ export default function Navigation() {
         <Menu.Item key="4" icon={<BarChartOutlined />}>
         <Link to={ORDER_MANAGEMENT}>Order</Link>
         </Menu.Item>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 37a78dd2ff8ec262970734e76ec30ce722bfe3ee
         <Menu.Item key="5" icon={<CloudOutlined />}>
           nav 5
         </Menu.Item>
