@@ -18,13 +18,14 @@ import {
   ORDER_MANAGEMENT,
   routes,
 } from "routes/route.config";
+
 export default function Navigation() {
-  const [highlightedMenuId, setHighlightedMenuId] = useState("1");
+  const DEFAULT_MENU_ID = "1";
+  const [highlightedMenuId, setHighlightedMenuId] = useState(DEFAULT_MENU_ID);
   const location = useLocation();
   useEffect(() => {
-    const menuId = routes[location.pathname].toString();
-    setHighlightedMenuId(menuId);
-    console.log(typeof menuId);
+    const menuId = routes[location.pathname]?.toString();
+    setHighlightedMenuId(menuId || DEFAULT_MENU_ID);
   }, [location]);
 
   return (
@@ -42,6 +43,7 @@ export default function Navigation() {
         <Menu.Item key="4" icon={<BarChartOutlined />}>
         <Link to={ORDER_MANAGEMENT}>Order</Link>
         </Menu.Item>
+
         <Menu.Item key="5" icon={<CloudOutlined />}>
           nav 5
         </Menu.Item>

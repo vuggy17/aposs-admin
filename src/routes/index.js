@@ -15,6 +15,7 @@ import {
   PRODUCT_MANAGEMENT,
   ORDER_MANAGEMENT,
 } from "./route.config";
+import Workspace from "components/Dashboard/Workspace";
 
 import Login from "pages/Login";
 import Home from "pages/Home";
@@ -39,6 +40,8 @@ export default function AppRoute() {
             <Route path={PRODUCT_MANAGEMENT} element={<Products />} />
             <Route path={ORDER_MANAGEMENT} element={<Order />} />
             <Route path={BLOCKED_ACCESS} element={<Blocked />} />
+            <Route path={WORKSPACE} element={<Workspace />} />
+            <Route path="test" element={<Loading />} />
           </Route>
           <Route path={LOGIN} element={<Login />} />
           <Route path="*" element={<PageNotFound />} />

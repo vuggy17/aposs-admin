@@ -43,7 +43,8 @@ function handleError(code = 0, message) {
   switch (code) {
     case STATUS_ERROR.HTTP_401_CREDENTIAL_NOT_FOUND:
       message = "Unauthenticated, try login again";
-      window.location = LOGIN;
+      // TODO: turn on next line to rediect to login page if auth_token exprired
+      // window.location = LOGIN;
       break;
     case STATUS_ERROR.HTTP_404_NOT_FOUND:
       message = "Item not found";
