@@ -34,6 +34,9 @@
             "environment/*": [
                 "./src/environment/*"
             ],
+            "asset/*": [
+                "./src/asset/*"
+            ],
         },
     },
     "include": [
