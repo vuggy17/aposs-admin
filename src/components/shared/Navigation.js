@@ -15,6 +15,7 @@ import {
   CATEGORY_MANAGEMENT,
   DEFAULT_ROUTE,
   PRODUCT_MANAGEMENT,
+  ORDER_MANAGEMENT,
   routes,
 } from "routes/route.config";
 export default function Navigation() {
@@ -39,7 +40,7 @@ export default function Navigation() {
           <Link to={PRODUCT_MANAGEMENT}>Products</Link>
         </Menu.Item>
         <Menu.Item key="4" icon={<BarChartOutlined />}>
-          nav 4
+        <Link to={ORDER_MANAGEMENT}>Order</Link>
         </Menu.Item>
         <Menu.Item key="5" icon={<CloudOutlined />}>
           nav 5
