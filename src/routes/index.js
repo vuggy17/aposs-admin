@@ -14,6 +14,7 @@ import {
   LOGIN,
   PRODUCT_MANAGEMENT,
   ORDER_MANAGEMENT,
+  WORKSPACE,
 } from "./route.config";
 import Workspace from "components/Dashboard/Workspace";
 
@@ -21,12 +22,11 @@ import Login from "pages/Login";
 import Home from "pages/Home";
 import Dashboard from "components/Dashboard";
 import Products from "components/products/Products";
-import Categories from "components/Categories";
-import Order from "components/order/Order"
+import Order from "components/order/Order";
 import Blocked from "pages/Blocked";
 import PageNotFound from "pages/PageNotFound";
-
-
+import Loading from "pages/Loading";
+import Categories from "components/Categories/Categories";
 
 export default function AppRoute() {
   return (
