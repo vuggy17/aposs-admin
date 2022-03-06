@@ -15,15 +15,18 @@ import {
   CATEGORY_MANAGEMENT,
   DEFAULT_ROUTE,
   PRODUCT_MANAGEMENT,
+  ORDER_MANAGEMENT,
   routes,
 } from "routes/route.config";
+
 export default function Navigation() {
-  const [highlightedMenuId, setHighlightedMenuId] = useState("1");
+  const DEFAULT_MENU_ID = "1";
+  const [highlightedMenuId, setHighlightedMenuId] = useState(DEFAULT_MENU_ID);
   const location = useLocation();
   useEffect(() => {
-    const menuId = routes[location.pathname].toString();
-    setHighlightedMenuId(menuId);
-    console.log(typeof menuId);
+    const pathname = location.pathname.substring(1, location.pathname.length);
+    const menuId = routes[pathname]?.toString();
+    setHighlightedMenuId(menuId || DEFAULT_MENU_ID);
   }, [location]);
 
   return (
@@ -39,8 +42,9 @@ export default function Navigation() {
           <Link to={PRODUCT_MANAGEMENT}>Products</Link>
         </Menu.Item>
         <Menu.Item key="4" icon={<BarChartOutlined />}>
-          nav 4
+          <Link to={ORDER_MANAGEMENT}>Order</Link>
         </Menu.Item>
+
         <Menu.Item key="5" icon={<CloudOutlined />}>
           nav 5
         </Menu.Item>

@@ -24,15 +24,7 @@ export class Home extends Component {
         <Layout className="bg-gray-400" style={{ marginLeft: 200 }}>
           <Header className="bg-red-700" style={{ padding: 0 }} />
           <Content style={{ margin: "24px 16px 0", overflow: "initial" }}>
-            <div
-              className="bg-white"
-              style={{
-                padding: 24,
-                textAlign: "center",
-              }}
-            >
-              <Outlet />
-            </div>
+            <Outlet />
           </Content>
           <Footer style={{ textAlign: "center" }}>
             Ant Design ©2018 Created by Ant UED

@@ -1,0 +1,14 @@
+.tb__product:only-child .ant-spin-nested-loading .ant-spin-container .ant-table {
+    margin: 0px;
+}
+
+.tb__order .ant-table-expanded-row .ant-table-cell{
+    background: #fff;
+}
+
+.hd__order {
+    background-color: #1da57a;
+    color: #fff;
+    font-size: 3em;
+}
+
