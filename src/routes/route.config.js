@@ -1,10 +1,12 @@
-export const BLOCKED_ACCESS = "/access-blocked";
-export const LOGIN = "/login";
-export const CATEGORY_MANAGEMENT = "/categories";
-export const PRODUCT_MANAGEMENT = "/products";
-export const ORDER_MANAGEMENT = "/order";
+export const BLOCKED_ACCESS = "access-blocked";
+export const LOGIN = "login";
+export const CATEGORY_MANAGEMENT = "categories";
+export const PRODUCT_MANAGEMENT = "products";
+export const ORDER_MANAGEMENT = "order";
 export const DEFAULT_ROUTE = "/";
-export const WORKSPACE = "/workspace";
+export const WORKSPACE = "workspace";
+export const NEW_PRODUCT = `/${PRODUCT_MANAGEMENT}/new`;
+export const EDIT_PRODUCT = `/${PRODUCT_MANAGEMENT}/:productId`;
 
 // Add new route here for menu lighting when navigating in browser
 export const routes = {
