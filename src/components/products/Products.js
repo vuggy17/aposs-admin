@@ -123,7 +123,10 @@ export default function Products() {
         <p className="text-xl">
           {editProduct?.title}
           <Tooltip title="Edit product">
-            <Button type="link" href={`${editProduct?.title}`}>
+            <Button
+              type="link"
+              href={`${PRODUCT_MANAGEMENT}/${editProduct?.title}`}
+            >
               <EditOutlined key="edit" />
             </Button>
           </Tooltip>
