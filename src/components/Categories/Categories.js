@@ -31,9 +31,9 @@ export default function Categories() {
 
   return (
     <>
-      <div className="bg-white p-9 pl-6 pt-6">
+      <div className="bg-white p-9 pl-6 pt-4">
         <Breadcrumb pages={pages} />
-        <div className="pt-6">
+        <div className="pt-4">
           <h2>Categories</h2>
         </div>
       </div>
