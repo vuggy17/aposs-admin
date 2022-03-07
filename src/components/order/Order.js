@@ -76,39 +76,39 @@ export default function Order() {
 
   const columnsOrder = [
     {
-      title: 'ID',
-      dataIndex: 'key',
-      key: 'key',
+      title: 'ORDER NO.',
+      dataIndex: 'id',
+      key: 'id',
     },
     {
-      title: 'Order time',
-      dataIndex: 'orderTime',
-      key: 'orderTime',
-    },
-    {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
-    },
-    {
-      title: 'Phone',
-      dataIndex: 'phone',
-      key: 'phone',
-    },
-    {
-      title: 'Address',
-      dataIndex: 'address',
-      key: 'address',
-    },
-    {
-      title: 'Status',
+      title: 'STATUS',
       dataIndex: 'statusOrder',
       key: 'statusOrder',
     },
     {
-      title: 'Total',
-      dataIndex: 'total',
-      key: 'total',
+      title: 'OPERATORS',
+      dataIndex: 'name',
+      key: 'name',
+    },
+    {
+      title: 'LOCATION',
+      dataIndex: 'address',
+      key: 'address',
+    },
+    {
+      title: 'DISTANCE',
+      dataIndex: 'distance',
+      key: 'distance',
+    },
+    {
+      title: 'START DATE',
+      dataIndex: 'orderTime',
+      key: 'orderTime',
+    },
+    {
+      title: 'EST DELIVERY DUE',
+      dataIndex: 'estDelivery',
+      key: 'estDelivery',
     },
     {
       title: '',
