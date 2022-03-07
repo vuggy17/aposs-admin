@@ -18,3 +18,22 @@ export const routes = {
   [ORDER_MANAGEMENT]: 4,
   [INDUSTRY_MANAGEMENT]: 5,
 };
+
+// use DynamicBreadcrumb to render route with custom prop, ex: /category/:categoryId
+export const breadcumbRoutes = [
+  { path: DEFAULT_ROUTE, breadcrumb: "Home" },
+  { path: CATEGORY_MANAGEMENT, breadcrumb: "Categories" },
+  { path: PRODUCT_MANAGEMENT, breadcrumb: "Products" },
+  { path: ORDER_MANAGEMENT, breadcrumb: "Orders" },
+  { path: INDUSTRY_MANAGEMENT, breadcrumb: "Industries" },
+  {
+    path: EDIT_PRODUCT,
+    breadcrumb: (props) => DynamicBreadcrumb(props, "productId"),
+  },
+  {
+    path: CATEGORY_DETAIL,
+    breadcrumb: (props) => DynamicBreadcrumb(props, "categoryId"),
+  },
+];
+
+const DynamicBreadcrumb = ({ match }, propName) => match.params[propName];

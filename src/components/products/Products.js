@@ -33,11 +33,6 @@ import {
 import { formatPrice } from "util/formatPrice";
 import useDebounce from "util/hooks/useDebouce";
 
-const pages = [
-  { url: "#", title: "Home" },
-  { url: PRODUCT_MANAGEMENT, title: "Products" },
-];
-
 export default function Products() {
   const [loading, setLoading] = useState(false);
   const [productEditing, setproductEditing] = useState(false);
@@ -63,7 +58,7 @@ export default function Products() {
   return (
     <>
       <div className="bg-white p-9 pl-6 pt-4">
-        <Breadcrumb pages={pages} />
+        <Breadcrumb />
         <div className="pt-4">
           <h2>Products</h2>
         </div>

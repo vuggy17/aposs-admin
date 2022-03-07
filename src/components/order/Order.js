@@ -1,23 +1,25 @@
-import React from "react"
-import { useState, useEffect, useLayoutEffect } from "react"
+import React from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
 
-import { Table, Space } from "antd"
+import { Table, Space } from "antd";
 import { Button, Input, List } from "antd";
 import useDebounce from "util/hooks/useDebouce";
 import Breadcrumb from "../shared/Breadcrumb";
-import { CaretDownOutlined, CaretUpOutlined, CaretRightOutlined } from "@ant-design/icons"
+import {
+  CaretDownOutlined,
+  CaretUpOutlined,
+  CaretRightOutlined,
+} from "@ant-design/icons";
 
-import ProductTable from "components/Products/ProductTable"
-import { dataProducts } from "./dataProduct"
-import { dataOrder } from "./dataOrder"
+import ProductTable from "components/Products/ProductTable";
+import { dataProducts } from "./dataProduct";
+import { dataOrder } from "./dataOrder";
 
 import { ORDER_MANAGEMENT } from "routes/route.config";
-import "./Order.css"
-
+import "./Order.css";
 
 export default function Order() {
-
   const pages = [
     { url: "#", title: "Home" },
     { url: ORDER_MANAGEMENT, title: "Order" },
@@ -29,12 +31,10 @@ export default function Order() {
   useEffect(() => {
     // TODO: api call and filter items
     setProducts(dataProducts);
+  });
 
-  })
-
-  //Calculate total 
+  //Calculate total
   useEffect(() => {
-
     // Deep copy
     const data = JSON.parse(JSON.stringify(orderList));
 
@@ -42,17 +42,16 @@ export default function Order() {
       let total = 0;
       for (let j = 0; j < products.length; j++) {
         if (data[i].key == products[j].id) {
-
           //if data.total is exists
           if (data[i].total) {
-            total = total + parseInt(products[j].price)
+            total = total + parseInt(products[j].price);
           }
         }
       }
-      data[i].total = total + ' $';
+      data[i].total = total + " $";
     }
-    setOrderList(data)
-  }, [products])
+    setOrderList(data);
+  }, [products]);
 
   function formatProduct({ key, img, name, color, size, amount, price }) {
     return {
@@ -65,7 +64,7 @@ export default function Order() {
       },
       amount,
       price,
-    }
+    };
   }
 
   const onSearch = (e) => {
@@ -76,43 +75,43 @@ export default function Order() {
 
   const columnsOrder = [
     {
-      title: 'ORDER NO.',
-      dataIndex: 'id',
-      key: 'id',
+      title: "ORDER NO.",
+      dataIndex: "id",
+      key: "id",
     },
     {
-      title: 'STATUS',
-      dataIndex: 'statusOrder',
-      key: 'statusOrder',
+      title: "STATUS",
+      dataIndex: "statusOrder",
+      key: "statusOrder",
     },
     {
-      title: 'OPERATORS',
-      dataIndex: 'name',
-      key: 'name',
+      title: "OPERATORS",
+      dataIndex: "name",
+      key: "name",
     },
     {
-      title: 'LOCATION',
-      dataIndex: 'address',
-      key: 'address',
+      title: "LOCATION",
+      dataIndex: "address",
+      key: "address",
     },
     {
-      title: 'DISTANCE',
-      dataIndex: 'distance',
-      key: 'distance',
+      title: "DISTANCE",
+      dataIndex: "distance",
+      key: "distance",
     },
     {
-      title: 'START DATE',
-      dataIndex: 'orderTime',
-      key: 'orderTime',
+      title: "START DATE",
+      dataIndex: "orderTime",
+      key: "orderTime",
     },
     {
-      title: 'EST DELIVERY DUE',
-      dataIndex: 'estDelivery',
-      key: 'estDelivery',
+      title: "EST DELIVERY DUE",
+      dataIndex: "estDelivery",
+      key: "estDelivery",
     },
     {
-      title: '',
-      key: 'action',
+      title: "",
+      key: "action",
       render: (text, record) => (
         <Space size="middle">
           <a>Accept</a>
@@ -122,11 +121,13 @@ export default function Order() {
     },
     // Open order detail in new tab
     {
-      title: '',
-      key: 'orderDetail',
+      title: "",
+      key: "orderDetail",
       render: () => (
-        <Link to={`${ORDER_MANAGEMENT}/:id`}><CaretRightOutlined style={{color: 'black'}} /></Link>
-      )
+        <Link to={`${ORDER_MANAGEMENT}/:id`}>
+          <CaretRightOutlined style={{ color: "black" }} />
+        </Link>
+      ),
     },
     Table.EXPAND_COLUMN,
   ];
@@ -134,7 +135,7 @@ export default function Order() {
   return (
     <div>
       <div className="bg-white p-9 pl-6 pt-6">
-        <Breadcrumb pages={pages} />
+        <Breadcrumb />
         <div className="pt-6">
           <h2>Order</h2>
         </div>
@@ -163,8 +164,9 @@ export default function Order() {
         //     <CaretDownOutlined onClick={e => onExpand(record, e)} />
         //   )
         // }}
-
-      > </Table>
+      >
+        {" "}
+      </Table>
     </div>
-  )
-};
+  );
+}

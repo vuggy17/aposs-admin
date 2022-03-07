@@ -1,11 +1,7 @@
 import Breadcrumb from "components/shared/Breadcrumb";
 import React from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import {
-  CATEGORY_DETAIL,
-  CATEGORY_MANAGEMENT,
-  PRODUCT_MANAGEMENT,
-} from "routes/route.config";
+import { useNavigate, useParams } from "react-router-dom";
+import { PRODUCT_MANAGEMENT } from "routes/route.config";
 import menIcon from "asset/men.png";
 import { EditOutlined } from "@ant-design/icons";
 import { Col, Row } from "antd";
@@ -15,16 +11,10 @@ export default function Category() {
   const { categoryId } = useParams();
 
   const navigate = useNavigate();
-  const { pathname } = useLocation();
-  const pages = [
-    { url: "#", title: "Home" },
-    { url: "/" + CATEGORY_MANAGEMENT, title: "Categories" },
-    { url: CATEGORY_DETAIL, title: categoryId },
-  ];
   return (
     <>
       <div className="bg-white p-9 pl-6 pt-4">
-        <Breadcrumb pages={pages} />
+        <Breadcrumb />
         <div className="pt-4 flex">
           <div className="relative">
             <img
@@ -36,7 +26,7 @@ export default function Category() {
             <div className="absolute transition-all duration-300 hover:opacity-60 bg-black h-full w-full left-0 top-0 opacity-0 text-white text-center">
               <label
                 id="getFileLabel"
-                for="getFile"
+                htmlFor="getFile"
                 className="w-full h-full flex items-center justify-center cursor-pointer"
               >
                 <EditOutlined /> change
