@@ -4,15 +4,10 @@ import { AddCategoryModal } from "components/categories/AddCategoryModal";
 import { CategoryListItem } from "components/categories/CategoryListItem";
 import { EditCategoryModal } from "components/categories/EditCategoryModal";
 import React, { useEffect, useState } from "react";
-import { CATEGORY_MANAGEMENT, INDUSTRY_MANAGEMENT } from "routes/route.config";
 import useDebounce from "util/hooks/useDebouce";
 import Breadcrumb from "../shared/Breadcrumb";
 
 export default function Industries() {
-  const pages = [
-    { url: "#", title: "Home" },
-    { url: INDUSTRY_MANAGEMENT, title: "Industries" },
-  ];
   const [createVisible, setcreateVisible] = useState(false);
   const [editVisible, setEditVisible] = useState(false);
 
@@ -32,7 +27,7 @@ export default function Industries() {
   return (
     <>
       <div className="bg-white p-9 pl-6 pt-4">
-        <Breadcrumb pages={pages} />
+        <Breadcrumb />
         <div className="pt-4">
           <h2>Industry</h2>
         </div>

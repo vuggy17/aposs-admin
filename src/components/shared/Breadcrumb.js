@@ -1,12 +1,14 @@
 import { Breadcrumb } from "antd";
 import React from "react";
-
-export default function CustomBreadcrumb({ pages }) {
+import { breadcumbRoutes } from "routes/route.config";
+import useBreadcrumbs from "use-react-router-breadcrumbs";
+export default function CustomBreadcrumb() {
+  const breadcrumbs = useBreadcrumbs(breadcumbRoutes);
   return (
     <Breadcrumb>
-      {pages?.map(({ url, title }, index) => (
+      {breadcrumbs.map(({ match, breadcrumb }, index) => (
         <Breadcrumb.Item key={index}>
-          <a href={url}>{title}</a>
+          <a href={match.pathname}>{breadcrumb}</a>
         </Breadcrumb.Item>
       ))}
     </Breadcrumb>

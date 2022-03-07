@@ -1,7 +1,6 @@
 import { PlusOutlined } from "@ant-design/icons";
 import { Button, Input, List, Tabs } from "antd";
 import React, { useEffect, useState } from "react";
-import { CATEGORY_MANAGEMENT } from "routes/route.config";
 import useDebounce from "util/hooks/useDebouce";
 import Breadcrumb from "../shared/Breadcrumb";
 import { AddCategoryModal } from "./AddCategoryModal";
@@ -9,10 +8,6 @@ import { CategoryListItem } from "./CategoryListItem";
 import { EditCategoryModal } from "./EditCategoryModal";
 
 export default function Categories() {
-  const pages = [
-    { url: "#", title: "Home" },
-    { url: CATEGORY_MANAGEMENT, title: "Categories" },
-  ];
   const [createVisible, setcreateVisible] = useState(false);
   const [editVisible, setEditVisible] = useState(false);
 
@@ -32,7 +27,7 @@ export default function Categories() {
   return (
     <>
       <div className="bg-white p-9 pl-6 pt-4">
-        <Breadcrumb pages={pages} />
+        <Breadcrumb />
         <div className="pt-4">
           <h2>Categories</h2>
         </div>
