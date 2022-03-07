@@ -45,7 +45,6 @@ export default function Navigation() {
         <Menu.Item key="4" icon={<BarChartOutlined />}>
           <Link to={ORDER_MANAGEMENT}>Order</Link>
         </Menu.Item>
-
         <Menu.Item key="5" icon={<CloudOutlined />}>
           <Link to={INDUSTRY_MANAGEMENT}>Industries</Link>
         </Menu.Item>
