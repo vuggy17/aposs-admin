@@ -91,9 +91,8 @@ export default function Products() {
               price: Math.round(Math.random() * 4000000),
             })
             .map(({ title, description, price }, index) => (
-              <Col className="gutter-row" span={6}>
+              <Col className="gutter-row" span={6} key={index}>
                 <ProductCard
-                  key={index}
                   title={title + index}
                   description={description}
                   onEditPressed={onEditProduct({
@@ -128,10 +127,6 @@ export default function Products() {
             </Button>
           </Tooltip>
         </p>
-        {/*
-        <p>{editProduct?.description}</p>
-        <p>{editProduct?.price}</p>
-        <p>{editProduct?.units}</p> */}
         <Descriptions
           layout="horizontal"
           column={1}
@@ -165,8 +160,7 @@ export default function Products() {
     </>
   );
 }
-function ProductCard({
-  key,
+export function ProductCard({
   loading,
   title,
   description,
@@ -197,7 +191,6 @@ function ProductCard({
   );
   return (
     <Card
-      key={key}
       hoverable={false}
       actions={[
         <EditOutlined key="edit" onClick={onEditPressed} />,
@@ -220,7 +213,7 @@ function ProductCard({
   );
 }
 
-function AddProduct() {
+export function AddProduct() {
   const navigate = useNavigate();
   const handlePress = () => {
     navigate(NEW_PRODUCT);
