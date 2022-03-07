@@ -17,6 +17,7 @@ import {
   PRODUCT_MANAGEMENT,
   ORDER_MANAGEMENT,
   routes,
+  INDUSTRY_MANAGEMENT,
 } from "routes/route.config";
 
 export default function Navigation() {
@@ -46,7 +47,7 @@ export default function Navigation() {
         </Menu.Item>
 
         <Menu.Item key="5" icon={<CloudOutlined />}>
-          nav 5
+          <Link to={INDUSTRY_MANAGEMENT}>Industries</Link>
         </Menu.Item>
         <Menu.Item key="6" icon={<AppstoreOutlined />}>
           nav 6
