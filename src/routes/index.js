@@ -20,6 +20,7 @@ import {
   INDUSTRY_MANAGEMENT,
   CATEGORY_DETAIL,
   EDIT_PRODUCT_FROM_CATEGORY,
+  ADD_PRODUCT_FROM_CATEGORY,
 } from "./route.config";
 import Workspace from "components/Dashboard/Workspace";
 
@@ -54,6 +55,10 @@ export default function AppRoute() {
             <Route
               path={EDIT_PRODUCT_FROM_CATEGORY}
               element={<EditProduct />}
+            />
+            <Route
+              path={ADD_PRODUCT_FROM_CATEGORY}
+              element={<CreateProduct />}
             />
             <Route path={ORDER_MANAGEMENT} element={<Order />} />
             <Route path={BLOCKED_ACCESS} element={<Blocked />} />
