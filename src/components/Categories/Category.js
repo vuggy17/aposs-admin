@@ -10,7 +10,7 @@ import {
 import menIcon from "asset/men.png";
 import { EditOutlined } from "@ant-design/icons";
 import { Col, Row, Tooltip } from "antd";
-import { AddProduct, ProductCard } from "components/products/Products";
+import { AddProduct, ProductCard } from "components/products/Products1";
 import EditableContainer from "components/shared/EditableText";
 
 export default function Category() {
