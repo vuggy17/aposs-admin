@@ -2,6 +2,7 @@ import Breadcrumb from "components/shared/Breadcrumb";
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
+  ADD_PRODUCT_FROM_CATEGORY,
   CATEGORY_MANAGEMENT,
   EDIT_PRODUCT_FROM_CATEGORY,
   PRODUCT_MANAGEMENT,
@@ -59,7 +60,8 @@ export default function Category() {
           <Row gutter={[8, 8]}>
             <Col className="gutter-row" span={6}>
               <AddProduct
-              // handlePress={handleAddProduct}
+                path={`/${CATEGORY_MANAGEMENT}/${categoryId}/new-product`}
+                // handlePress={handleAddProduct}
               />
             </Col>
             {Array(6)

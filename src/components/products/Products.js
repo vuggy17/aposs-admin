@@ -211,10 +211,10 @@ export function ProductCard({
   );
 }
 
-export function AddProduct() {
+export function AddProduct({ path = NEW_PRODUCT }) {
   const navigate = useNavigate();
   const handlePress = () => {
-    navigate(NEW_PRODUCT);
+    navigate(path);
   };
   return (
     <Button
