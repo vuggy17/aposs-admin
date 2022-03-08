@@ -1,9 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const webpack = require("webpack");
-const { resolve } = require("path");
 const dotenv = require("dotenv").config({ path: __dirname + "/.env" });
-const isDevelopment = process.env.NODE_ENV !== "production";
 
 module.exports = ({ mode } = { mode: "production" }) => {
   console.log(`mode is: ${mode}`);
@@ -86,11 +84,8 @@ module.exports = ({ mode } = { mode: "production" }) => {
       hot: true,
     },
     resolve: {
-      modules: [resolve(process.cwd(), "src"), "node_modules"],
+      modules: [path.resolve(__dirname, "src"), "node_modules"],
       extensions: ["*", ".js", ".jsx", ".json"],
-      symlinks: false,
-      cacheWithContext: false,
-      preferRelative: true,
     },
   };
 };
