@@ -32,7 +32,7 @@ import Order from "components/order/Order";
 import Blocked from "pages/Blocked";
 import PageNotFound from "pages/PageNotFound";
 import Loading from "pages/Loading";
-import Categories from "components/categories/Categories";
+import Categories from "components/Categories/Categories1";
 import CreateProduct from "components/products/CreateProduct";
 import EditProduct from "components/products/EditProduct";
 import Industries from "components/industries/Industries";
