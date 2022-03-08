@@ -11,6 +11,7 @@ import menIcon from "asset/men.png";
 import { EditOutlined } from "@ant-design/icons";
 import { Col, Row } from "antd";
 import { AddProduct, ProductCard } from "components/products/Products";
+import EditableContainer from "components/shared/EditableText";
 
 export default function Category() {
   const { categoryId } = useParams();
@@ -40,12 +41,17 @@ export default function Category() {
             </div>
           </div>
           <div className="flex-1">
-            <h2>{categoryId}</h2>
-            <p className="opacity-80 text-gray-800 text-base">
-              "Lorem, ipsum dolor sit amet temporibus, sunt qui asperiores,
-              voluptates beatae est. Sunt pariatur, exercitationem nisi magnam
-              vel porro.",
-            </p>
+            <h2 id="header">{}</h2>
+            <EditableContainer>
+              <EditableContainer.Header value={categoryId} />
+            </EditableContainer>
+            <EditableContainer>
+              <EditableContainer.Text
+                value="Lorem, ipsum dolor sit amet temporibus, sunt qui asperiores,
+                voluptates beatae est. Sunt pariatur, exercitationem nisi magnam
+                vel porro."
+              />
+            </EditableContainer>
             <p className="opacity-80 text-gray-800 text-base">
               Sold: 240 items
             </p>
