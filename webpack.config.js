@@ -32,13 +32,6 @@ module.exports = ({ mode } = { mode: "production" }) => {
             },
           ],
         },
-        // {
-        //   test: /\.(jpe?g|png|gif|svg)$/i,
-        //   exclude: /node_modules/,
-        //   options: {
-        //     name: "/public/icons/[name].[ext]",
-        //   },
-        // },
         {
           test: /\.(js|jsx)$/,
           exclude: /node_modules/,
@@ -84,9 +77,7 @@ module.exports = ({ mode } = { mode: "production" }) => {
       }),
       new webpack.DefinePlugin({
         "process.env": JSON.stringify(dotenv.parsed),
-        "process.env.NODE_ENV": JSON.stringify(
-          isDevelopment ? "development" : "production"
-        ),
+        "process.env.NODE_ENV": JSON.stringify(mode),
       }),
     ].filter(Boolean),
     devServer: {
@@ -103,33 +94,3 @@ module.exports = ({ mode } = { mode: "production" }) => {
     },
   };
 };
-
-// module.exports = {
-//   entry: path.join(__dirname, "src", "index.js"),
-//   output: {
-//     path: path.resolve(__dirname, "dist"),
-//   },
-//   rules: [
-//     {
-//       test: /\.less$/,
-//       use: [
-//         {
-//           loader: "less-loader", // compiles Less to CSS
-//           options: {
-//             lessOptions: {
-//               // If you are using less-loader@5 please spread the lessOptions to options directly
-//               modifyVars: {
-//                 "primary-color": "#1DA57A",
-//                 "link-color": "#1DA57A",
-//                 "border-radius-base": "2px",
-//               },
-//               javascriptEnabled: true,
-//             },
-//           },
-//         },
-//       ],
-//       // ...other rules
-//     },
-//   ],
-//   // ...other config
-// };

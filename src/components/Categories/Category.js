@@ -9,7 +9,7 @@ import {
 } from "routes/route.config";
 import menIcon from "asset/men.png";
 import { EditOutlined } from "@ant-design/icons";
-import { Col, Row } from "antd";
+import { Col, Row, Tooltip } from "antd";
 import { AddProduct, ProductCard } from "components/products/Products";
 import EditableContainer from "components/shared/EditableText";
 
@@ -41,17 +41,24 @@ export default function Category() {
             </div>
           </div>
           <div className="flex-1">
-            <h2 id="header">{}</h2>
-            <EditableContainer>
-              <EditableContainer.Header value={categoryId} />
-            </EditableContainer>
-            <EditableContainer>
-              <EditableContainer.Text
-                value="Lorem, ipsum dolor sit amet temporibus, sunt qui asperiores,
+            <Tooltip title="Click to start editing" placement="rightTop">
+              <span>
+                <EditableContainer>
+                  <EditableContainer.Header value={categoryId} />
+                </EditableContainer>
+              </span>
+            </Tooltip>
+            <Tooltip title="Click to start editing" placement="rightTop">
+              <span>
+                <EditableContainer>
+                  <EditableContainer.Text
+                    value="Lorem, ipsum dolor sit amet temporibus, sunt qui asperiores,
                 voluptates beatae est. Sunt pariatur, exercitationem nisi magnam
                 vel porro."
-              />
-            </EditableContainer>
+                  />
+                </EditableContainer>
+              </span>
+            </Tooltip>
             <p className="opacity-80 text-gray-800 text-base">
               Sold: 240 items
             </p>

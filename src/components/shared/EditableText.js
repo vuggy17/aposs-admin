@@ -1,5 +1,5 @@
 import { log } from "@antv/g2plot/lib/utils";
-import { Button, Input } from "antd";
+import { Button, Input, Tooltip } from "antd";
 import React, { useContext, useEffect, useRef, useState } from "react";
 
 const DataContext = React.createContext();
