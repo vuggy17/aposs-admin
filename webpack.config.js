@@ -86,6 +86,18 @@ module.exports = ({ mode } = { mode: "production" }) => {
     resolve: {
       modules: [path.resolve(__dirname, "src"), "node_modules"],
       extensions: ["*", ".js", ".jsx", ".json"],
+      preferRelative: true,
+      alias: {
+        components: path.resolve(__dirname, "src/components"),
+        pages: path.resolve(__dirname, "src/pages"),
+        style: path.resolve(__dirname, "src/style"),
+        api: path.resolve(__dirname, "src/api"),
+        util: path.resolve(__dirname, "src/util"),
+        routes: path.resolve(__dirname, "src/routes"),
+        lib: path.resolve(__dirname, "src/lib"),
+        environment: path.resolve(__dirname, "src/environment"),
+        asset: path.resolve(__dirname, "src/asset"),
+      },
     },
   };
 };
