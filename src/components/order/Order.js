@@ -1,88 +1,57 @@
-import React from "react"
-import { useEffect } from "react"
+import React from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
+import { Link } from "react-router-dom";
 
-import { Table } from "antd"
-import { CaretDownOutlined, CaretUpOutlined } from "@ant-design/icons"
+import { Table, Space } from "antd";
+import { Button, Input, List } from "antd";
+import useDebounce from "util/hooks/useDebouce";
+import Breadcrumb from "../shared/Breadcrumb";
+import {
+  CaretDownOutlined,
+  CaretUpOutlined,
+  CaretRightOutlined,
+} from "@ant-design/icons";
 
-import ProductTable from "components/products/ProductTable"
-import { columnsProduct } from "../products/ProductTableCol"
+import ProductTable from "components/Products/ProductTable";
+import { dataProducts } from "./dataProduct";
+import { dataOrder } from "./dataOrder";
 
-import "./Order.css"
+import { ORDER_MANAGEMENT } from "routes/route.config";
+import "./Order.css";
 
 export default function Order() {
-
-  const dataSource = [
-    {
-      key: 1,
-      orderTime: '12:33 10/10/2021',
-      name: 'Pham Minh Tan',
-      phone: '0343027600',
-      address: '696 Hang Bai khu pho 6, phuong Linh Trung, Thu Duc, TPHCM',
-      statusOrder: "Pending",
-      total: 0,
-    },
-    {
-      key: 2,
-      orderTime: '12:33 10/10/2021',
-      name: 'Pham Minh Tan',
-      phone: '0343027600',
-      address: '696 Hang Bai khu pho 6, phuong Linh Trung, Thu Duc, TPHCM',
-      statusOrder: "Pending",
-      total: 0,
-    },
+  const pages = [
+    { url: "#", title: "Home" },
+    { url: ORDER_MANAGEMENT, title: "Order" },
   ];
 
-  const products = [{
-    key: 1,
-    id: 1,
-    img: 'https://pbs.twimg.com/media/FKGerj3XoAcaotk.jpg',
-    name: 'Women\'s hoodie',
-    color: 'red',
-    size: '30',
-    amount: '1',
-    price: '225 $'
-  }, {
-    key: 2,
-    id: 1,
-    img: 'https://pbs.twimg.com/media/FKGerj3XoAcaotk.jpg',
-    name: 'Women\'s hoodie',
-    color: 'red',
-    size: '30',
-    amount: '1',
-    price: '225 $'
-  }, {
-    key: 3,
-    id: 1,
-    img: 'https://pbs.twimg.com/media/FKGerj3XoAcaotk.jpg',
-    name: 'Women\'s hoodie',
-    color: 'red',
-    size: '30',
-    amount: '1',
-    price: '225 $'
-  }, {
-    key: 4,
-    id: 2,
-    img: 'https://pbs.twimg.com/media/FKGerj3XoAcaotk.jpg',
-    name: 'Women\'s hoodie',
-    color: 'red',
-    size: '30',
-    amount: '1',
-    price: '225'
-  },
-  ]
+  const [products, setProducts] = useState(dataProducts);
+  const [orderList, setOrderList] = useState(dataOrder);
 
-  //Calculate total 
   useEffect(() => {
-    for (let i = 0; i < dataSource.length; i++) {
+    // TODO: api call and filter items
+    setProducts(dataProducts);
+  });
+
+  //Calculate total
+  useEffect(() => {
+    // Deep copy
+    const data = JSON.parse(JSON.stringify(orderList));
+
+    for (let i = 0; i < data.length; i++) {
+      let total = 0;
       for (let j = 0; j < products.length; j++) {
-        if (dataSource[i].key == products[j].id) {
-          //if dataSource.total is exists
-          if (dataSource[i].total) dataSource = (parseInt(dataSource[i].total) + parseInt(products[j]).price) + ' $'
-          else dataSource[i].total = 0;
+        if (data[i].key == products[j].id) {
+          //if data.total is exists
+          if (data[i].total) {
+            total = total + parseInt(products[j].price);
+          }
         }
       }
+      data[i].total = total + " $";
     }
-  },[products])
+    setOrderList(data);
+  }, [products]);
 
   function formatProduct({ key, img, name, color, size, amount, price }) {
     return {
@@ -95,64 +64,109 @@ export default function Order() {
       },
       amount,
       price,
-    }
+    };
   }
+
+  const onSearch = (e) => {
+    const searchTerm = e.target.value;
+    // TODO: api call and filter items
+    console.log("searching", searchTerm);
+  };
 
   const columnsOrder = [
     {
-      title: 'Order time',
-      dataIndex: 'orderTime',
-      key: 'orderTime',
+      title: "ORDER NO.",
+      dataIndex: "id",
+      key: "id",
     },
     {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
+      title: "STATUS",
+      dataIndex: "statusOrder",
+      key: "statusOrder",
     },
     {
-      title: 'Phone',
-      dataIndex: 'phone',
-      key: 'phone',
+      title: "OPERATORS",
+      dataIndex: "name",
+      key: "name",
     },
     {
-      title: 'Address',
-      dataIndex: 'address',
-      key: 'address',
+      title: "LOCATION",
+      dataIndex: "address",
+      key: "address",
     },
     {
-      title: 'Status',
-      dataIndex: 'statusOrder',
-      key: 'statusOrder',
+      title: "DISTANCE",
+      dataIndex: "distance",
+      key: "distance",
     },
     {
-      title: 'Total',
-      dataIndex: 'total',
-      key: 'total',
+      title: "START DATE",
+      dataIndex: "orderTime",
+      key: "orderTime",
+    },
+    {
+      title: "EST DELIVERY DUE",
+      dataIndex: "estDelivery",
+      key: "estDelivery",
+    },
+    {
+      title: "",
+      key: "action",
+      render: (text, record) => (
+        <Space size="middle">
+          <a>Accept</a>
+          <a>Delete</a>
+        </Space>
+      ),
+    },
+    // Open order detail in new tab
+    {
+      title: "",
+      key: "orderDetail",
+      render: () => (
+        <Link to={`${ORDER_MANAGEMENT}/:id`}>
+          <CaretRightOutlined style={{ color: "black" }} />
+        </Link>
+      ),
     },
     Table.EXPAND_COLUMN,
   ];
 
   return (
     <div>
-      <h1 className="hd__order">My order</h1>
+      <div className="bg-white p-9 pl-6 pt-6">
+        <Breadcrumb />
+        <div className="pt-6">
+          <h2>Order</h2>
+        </div>
+      </div>
+      <div className=" mt-6 mb-4 m-auto w-1/2">
+        <Input.Search
+          onChange={useDebounce(onSearch)}
+          placeholder="Customer name"
+          enterButton="Search"
+          size="large"
+        ></Input.Search>
+      </div>
       <Table
         className="tb__order"
+        dataSource={orderList}
         columns={columnsOrder}
-        expandable={{
-          expandedRowRender: record => {
+        // expandable={{
+        //   expandedRowRender: record => {
 
-            return <ProductTable source={(products.filter(product => product.id == record.key)).map(formatProduct)} />
-          }
-          ,
-          expandIcon: ({ expanded, onExpand, record }) => expanded ? (
-            <CaretUpOutlined onClick={e => onExpand(record, e)} />
-          ) : (
-            <CaretDownOutlined onClick={e => onExpand(record, e)} />
-          )
-        }}
-
-        dataSource={dataSource}
-      />
+        //     return <ProductTable source={(products.filter(product => product.id == record.key)).map(formatProduct)} />
+        //   }
+        //   ,
+        //   expandIcon: ({ expanded, onExpand, record }) => expanded ? (
+        //     <CaretUpOutlined onClick={e => onExpand(record, e)} />
+        //   ) : (
+        //     <CaretDownOutlined onClick={e => onExpand(record, e)} />
+        //   )
+        // }}
+      >
+        {" "}
+      </Table>
     </div>
-  )
-};
+  );
+}

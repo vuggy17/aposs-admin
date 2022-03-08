@@ -16,7 +16,7 @@ export default function EditProduct({ title, price, units, description }) {
   return (
     <>
       <div className="bg-white p-9 pl-6 pt-4">
-        <Breadcrumb pages={pages} />
+        <Breadcrumb />
         <div className="pt-4">
           <h2>{productId}</h2>
         </div>

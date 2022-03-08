@@ -11088,6 +11088,11 @@ url-loader@^4.1.1:
     mime-types "^2.1.27"
     schema-utils "^3.0.0"
 
+use-react-router-breadcrumbs@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/use-react-router-breadcrumbs/-/use-react-router-breadcrumbs-3.1.0.tgz#7c0d1368e08daf55373cf9a679231ed2273cc727"
+  integrity sha512-iuslLMA4qmirs1NUMjoJIjgvY6dlXCltocwKM2B55gG6paZtANcycCHZh0HT4Ecdwoct2a0B2sKPw9kp2Y2HTg==
+
 util-deprecate@^1.0.1, util-deprecate@^1.0.2, util-deprecate@~1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
