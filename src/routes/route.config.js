@@ -47,11 +47,5 @@ export const breadcumbRoutes = [
 ];
 
 const DynamicBreadcrumb = ({ match }, propName) => {
-  // console.log(match.params);
-  // const matchedPropName = propNames
-  //   .reverse()
-  //   .find((n) => match.params[n] !== undefined);
-  // return match.params[matchedPropName];
-
   return match.params[propName];
 };
