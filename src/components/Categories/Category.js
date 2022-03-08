@@ -1,7 +1,11 @@
 import Breadcrumb from "components/shared/Breadcrumb";
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { PRODUCT_MANAGEMENT } from "routes/route.config";
+import {
+  CATEGORY_MANAGEMENT,
+  EDIT_PRODUCT_FROM_CATEGORY,
+  PRODUCT_MANAGEMENT,
+} from "routes/route.config";
 import menIcon from "asset/men.png";
 import { EditOutlined } from "@ant-design/icons";
 import { Col, Row } from "antd";
@@ -71,7 +75,9 @@ export default function Category() {
                     title={title + index}
                     description={description}
                     onEditPressed={() =>
-                      navigate(`/${PRODUCT_MANAGEMENT}/${title + index}`)
+                      navigate(
+                        `/${CATEGORY_MANAGEMENT}/${categoryId}/${title + index}`
+                      )
                     }
                     price={price}
                     stockStatus={Math.round(Math.random() * 100)}
