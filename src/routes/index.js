@@ -26,17 +26,17 @@ import Workspace from "components/dashboard/Workspace";
 
 import Login from "pages/Login";
 import Home from "pages/Home";
-import Dashboard from "components/dashboard";
-import Products from "components/products/Products1";
-import Order from "components/order/Order1";
+import Products from "components/products/Products";
+import Order from "components/order/Order";
 import Blocked from "pages/Blocked";
 import PageNotFound from "pages/PageNotFound";
 import Loading from "pages/Loading";
-import Categories from "components/categories/Categories1";
+import Categories from "components/categories/Categories";
 import CreateProduct from "components/products/CreateProduct";
-import Industries from "components/industries/Industries1";
+import Industries from "components/industries/Industries";
 import Category from "components/categories/Category";
-import EditProduct from "components/products/edit-product";
+import EditProduct from "components/products/EditProduct";
+import Dashboard from "components/dashboard/Dashboard";
 export default function AppRoute() {
   return (
     <div>
