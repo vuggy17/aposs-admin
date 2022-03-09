@@ -24,14 +24,14 @@ import {
 } from "./route.config";
 import Workspace from "component/dashboard/Workspace";
 
-import Login from "./pages/Login";
-import Home from "./pages/Home";
+import Login from "pages/Login";
+import Home from "pages/Home";
 import Dashboard from "component/dashboard";
 import Products from "component/products/Products1";
 import Order from "component/order/Order1";
-import Blocked from "./pages/Blocked";
-import PageNotFound from "./pages/PageNotFound";
-import Loading from "./pages/Loading";
+import Blocked from "pages/Blocked";
+import PageNotFound from "pages/PageNotFound";
+import Loading from "pages/Loading";
 import Categories from "component/categories/Categories1";
 import CreateProduct from "component/products/CreateProduct";
 import Industries from "component/industries/Industries1";
