@@ -34,10 +34,9 @@ import PageNotFound from "pages/PageNotFound";
 import Loading from "pages/Loading";
 import Categories from "components/categories/Categories1";
 import CreateProduct from "components/products/CreateProduct";
-import EditProduct from "components/products/EditProduct";
 import Industries from "components/industries/Industries1";
 import Category from "components/categories/Category";
-
+import EditProduct from "components/products/edit-product";
 export default function AppRoute() {
   return (
     <div>
