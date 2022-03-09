@@ -31,13 +31,14 @@ jobs:
       #     rm: true
     - name: Copy via ssh
       uses: garygrossgarten/github-action-scp@v0.7.3
-      local: build
-      remote: ~/aposs-admin/build
-      host: ${{ secrets.SSH_HOST  }}        
-      username: ${{ secrets.SSH_USERNAME }}      
-      password: ${{ secrets.SSH_PWD }}
-      rmRemote: true
-      
+      with:
+        local: build
+        remote: ~/aposs-admin/build
+        host: ${{ secrets.SSH_HOST  }}        
+        username: ${{ secrets.SSH_USERNAME }}      
+        password: ${{ secrets.SSH_PWD }}
+        rmRemote: true
+
     - name: Deploy with docker
       uses: appleboy/ssh-action@master
       with:
