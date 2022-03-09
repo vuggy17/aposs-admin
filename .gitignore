@@ -24,7 +24,7 @@ yarn-error.log*
 
 # lockfile
 .package.lock
-.yarn.lock
+# .yarn.lock
 
 # environment
 .env
