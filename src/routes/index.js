@@ -1,5 +1,5 @@
-import Categories from "components/categories/MyCategories";
 import Category from "components/categories/Category";
+import Categories from "components/categories/MyCategories";
 import Dashboard from "components/dashboard/MyDashboard";
 import Industries from "components/industries/MyIndustries";
 import Order from "components/order/MyOrder";
