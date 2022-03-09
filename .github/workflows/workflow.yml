@@ -43,7 +43,7 @@ jobs:
           sudo docker container rm -f aposs_admin
           sudo docker image rm -f aposs_admin
           sudo docker build -t aposs_admin .
-          sudo docker run -dp 5000:5000 --name aposs_admin aposs_admin
+          sudo docker run -dp 5000:3000 --name aposs_admin aposs_admin
     env:
       CI: false
 

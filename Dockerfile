@@ -11,7 +11,5 @@ COPY ./build ./
 
 RUN yarn global add serve
 
-EXPOSE 5000
-
 # start app
 CMD ["serve", "-s", "build"]
