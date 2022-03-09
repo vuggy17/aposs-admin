@@ -6,10 +6,6 @@ import { Avatar, Card, Divider, List, Statistic } from "antd";
 import { Meta } from "antd/lib/list/Item";
 
 export default function Workspace() {
-  const pages = [
-    { url: "#", title: "Home" },
-    { url: DEFAULT_ROUTE, title: "Work place" },
-  ];
   return (
     <>
       <div className="bg-white p-9 pl-6 pt-4">

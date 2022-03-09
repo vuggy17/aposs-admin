@@ -12,12 +12,11 @@ import {
   CaretRightOutlined,
 } from "@ant-design/icons";
 
-import ProductTable from "components/Products/ProductTable";
 import { dataProducts } from "./dataProduct";
 import { dataOrder } from "./dataOrder";
 
 import { ORDER_MANAGEMENT } from "routes/route.config";
-import "./Order.css";
+import "./MyOrder.css";
 
 export default function Order() {
   const pages = [

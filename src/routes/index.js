@@ -1,3 +1,16 @@
+import Category from "components/categories/Category";
+import Categories from "components/categories/MyCategories";
+import Dashboard from "components/dashboard/MyDashboard";
+import Industries from "components/industries/MyIndustries";
+import Order from "components/order/MyOrder";
+import CreateProduct from "components/products/CreateProduct";
+import EditProduct from "components/products/EditProduct";
+import Products from "components/products/MyProducts";
+import Blocked from "pages/Blocked";
+import Home from "pages/Home";
+import Loading from "pages/Loading";
+import Login from "pages/Login";
+import PageNotFound from "pages/PageNotFound";
 import React from "react";
 import {
   Route,
@@ -6,7 +19,7 @@ import {
   Routes,
   BrowserRouter,
 } from "react-router-dom";
-import { useAuth } from "util/hooks";
+import { useAuth } from "util/hooks/useAuth";
 
 import {
   BLOCKED_ACCESS,
@@ -22,21 +35,8 @@ import {
   EDIT_PRODUCT_FROM_CATEGORY,
   ADD_PRODUCT_FROM_CATEGORY,
 } from "./route.config";
-import Workspace from "components/dashboard/Workspace";
 
-import Login from "pages/Login";
-import Home from "pages/Home";
-import Dashboard from "components/dashboard";
-import Products from "components/products/Products1";
-import Order from "components/order/Order1";
-import Blocked from "pages/Blocked";
-import PageNotFound from "pages/PageNotFound";
-import Loading from "pages/Loading";
-import Categories from "components/categories/Categories1";
-import CreateProduct from "components/products/CreateProduct";
-import Industries from "components/industries/Industries1";
-import Category from "components/categories/Category";
-import EditProduct from "components/products/edit-product";
+// import Workspace from "components/dashboard/Workspace";
 export default function AppRoute() {
   return (
     <div>
@@ -61,7 +61,7 @@ export default function AppRoute() {
             />
             <Route path={ORDER_MANAGEMENT} element={<Order />} />
             <Route path={BLOCKED_ACCESS} element={<Blocked />} />
-            <Route path={WORKSPACE} element={<Workspace />} />
+            {/* <Route path={WORKSPACE} element={<Workspace />} /> */}
             <Route path="test" element={<Loading />} />
           </Route>
           <Route path={LOGIN} element={<Login />} />
