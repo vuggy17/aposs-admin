@@ -81,7 +81,7 @@ module.exports = ({ mode } = { mode: "production" }) => {
       hot: true,
     },
     resolve: {
-      modules: [path.join(__dirname, "src")],
+      modules: [path.join(__dirname, "src"), "node_modules"],
       extensions: ["*", ".js", ".jsx", ".json"],
       symlinks: false,
       cacheWithContext: false,
