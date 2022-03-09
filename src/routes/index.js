@@ -1,3 +1,16 @@
+import Categories from "components/categories/MyCategories";
+import Category from "components/categories/Category";
+import Dashboard from "components/dashboard/MyDashboard";
+import Industries from "components/industries/MyIndustries";
+import Order from "components/order/MyOrder";
+import CreateProduct from "components/products/CreateProduct";
+import EditProduct from "components/products/EditProduct";
+import Products from "components/products/MyProducts";
+import Blocked from "pages/Blocked";
+import Home from "pages/Home";
+import Loading from "pages/Loading";
+import Login from "pages/Login";
+import PageNotFound from "pages/PageNotFound";
 import React from "react";
 import {
   Route,
@@ -23,19 +36,6 @@ import {
   ADD_PRODUCT_FROM_CATEGORY,
 } from "./route.config";
 
-import Login from "pages/Login";
-import Home from "pages/Home";
-import Products from "components/products/Products";
-import Order from "components/order/Order";
-import Blocked from "pages/Blocked";
-import PageNotFound from "pages/PageNotFound";
-import Loading from "pages/Loading";
-import Categories from "components/categories/Categories";
-import CreateProduct from "components/products/CreateProduct";
-import Industries from "components/industries/Industries";
-import Category from "components/categories/Category";
-import EditProduct from "components/products/EditProduct";
-import Dashboard from "components/dashboard/Dashboard";
 // import Workspace from "components/dashboard/Workspace";
 export default function AppRoute() {
   return (
