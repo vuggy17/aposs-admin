@@ -30,12 +30,11 @@ jobs:
         rmRemote: true
 
     - name: Deploy with docker
-      uses: fifsky/ssh-action@master
+      uses:  garygrossgarten/github-action-ssh@release
       with:
         host: ${{ secrets.SSH_HOST  }}        
         username: ${{ secrets.SSH_USERNAME }}      
-        pass: ${{ secrets.SSH_PWD }}
-        port: 22
+        password: ${{ secrets.SSH_PWD }}
         command: | 
           cd ~/aposs-admin 
           git pull origin master
