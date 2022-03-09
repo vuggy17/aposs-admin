@@ -18,9 +18,7 @@ module.exports = ({ mode } = { mode: "production" }) => {
         {
           test: /\.jpe?g|png|svg$/,
           exclude: /node_modules/,
-          // loader: "url-loader",
           use: [
-            // { loader: "url-loader" },
             {
               loader: "file-loader",
               options: {
@@ -42,13 +40,12 @@ module.exports = ({ mode } = { mode: "production" }) => {
               loader: "style-loader",
             },
             {
-              loader: "css-loader", // translates CSS into CommonJS
+              loader: "css-loader",
             },
             {
-              loader: "less-loader", // compiles Less to CSS
+              loader: "less-loader",
               options: {
                 lessOptions: {
-                  // If you are using less-loader@5 please spread the lessOptions to options directly
                   modifyVars: {
                     "primary-color": "#1DA57A",
                     "link-color": "#1DA57A",
