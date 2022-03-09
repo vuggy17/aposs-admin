@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import { Table, Space } from "antd";
 import { Button, Input, List } from "antd";
-import useDebounce from "util/hooks/useDebouce";
+import useDebounce from "./util/hooks/useDebouce";
 import Breadcrumb from "../shared/Breadcrumb";
 import {
   CaretDownOutlined,
@@ -12,7 +12,7 @@ import {
   CaretRightOutlined,
 } from "@ant-design/icons";
 
-import ProductTable from "components/Products/ProductTable";
+import ProductTable from "./component/Products/ProductTable";
 import { dataProducts } from "./dataProduct";
 import { dataOrder } from "./dataOrder";
 

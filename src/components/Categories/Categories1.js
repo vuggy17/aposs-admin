@@ -1,7 +1,7 @@
 import { PlusOutlined } from "@ant-design/icons";
 import { Button, Input, List, Tabs } from "antd";
 import React, { useEffect, useState } from "react";
-import useDebounce from "util/hooks/useDebouce";
+import useDebounce from "./util/hooks/useDebouce";
 import Breadcrumb from "../shared/Breadcrumb";
 import { AddCategoryModal } from "./add-category-modal";
 import { CategoryListItem } from "./CategoryListItem";

@@ -21,8 +21,8 @@ import {
   Tooltip,
 } from "antd";
 import Meta from "antd/lib/card/Meta";
-import Breadcrumb from "components/shared/Breadcrumb";
-import ProductStockStatus from "components/shared/ProductStockStatus";
+import Breadcrumb from "./component/shared/Breadcrumb";
+import ProductStockStatus from "./component/shared/ProductStockStatus";
 import React, { Component, useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import {
@@ -30,8 +30,8 @@ import {
   NEW_PRODUCT,
   PRODUCT_MANAGEMENT,
 } from "routes/route.config";
-import { formatPrice } from "util/formatPrice";
-import useDebounce from "util/hooks/useDebouce";
+import { formatPrice } from "./util/formatPrice";
+import useDebounce from "./util/hooks/useDebouce";
 
 export default function Products() {
   const [loading, setLoading] = useState(false);

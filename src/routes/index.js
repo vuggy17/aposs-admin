@@ -6,7 +6,7 @@ import {
   Routes,
   BrowserRouter,
 } from "react-router-dom";
-import { useAuth } from "util/hooks";
+import { useAuth } from "./util/hooks";
 
 import {
   BLOCKED_ACCESS,
@@ -22,21 +22,21 @@ import {
   EDIT_PRODUCT_FROM_CATEGORY,
   ADD_PRODUCT_FROM_CATEGORY,
 } from "./route.config";
-import Workspace from "components/dashboard/Workspace";
+import Workspace from "./component/dashboard/Workspace";
 
-import Login from "pages/Login";
-import Home from "pages/Home";
-import Dashboard from "components/dashboard";
-import Products from "components/products/Products1";
-import Order from "components/order/Order1";
-import Blocked from "pages/Blocked";
-import PageNotFound from "pages/PageNotFound";
-import Loading from "pages/Loading";
-import Categories from "components/categories/Categories1";
-import CreateProduct from "components/products/CreateProduct";
-import Industries from "components/industries/Industries1";
-import Category from "components/categories/Category";
-import EditProduct from "components/products/edit-product";
+import Login from "./pages/Login";
+import Home from "./pages/Home";
+import Dashboard from "./component/dashboard";
+import Products from "./component/products/Products1";
+import Order from "./component/order/Order1";
+import Blocked from "./pages/Blocked";
+import PageNotFound from "./pages/PageNotFound";
+import Loading from "./pages/Loading";
+import Categories from "./component/categories/Categories1";
+import CreateProduct from "./component/products/CreateProduct";
+import Industries from "./component/industries/Industries1";
+import Category from "./component/categories/Category";
+import EditProduct from "./component/products/edit-product";
 export default function AppRoute() {
   return (
     <div>

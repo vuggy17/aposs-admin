@@ -1,5 +1,5 @@
 import { Button, Col, Form, Input, InputNumber, Row, Select } from "antd";
-import Breadcrumb from "components/shared/Breadcrumb";
+import Breadcrumb from "./component/shared/Breadcrumb";
 import React from "react";
 import { NEW_PRODUCT, PRODUCT_MANAGEMENT } from "routes/route.config";
 import { ProductPictures } from "./ProductPictures";

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getToken } from "util/storage/cookie";
+import { getToken } from "./util/storage/cookie";
 
 import { notification } from "antd";
 import { STATUS_ERROR } from "../../api/ApiStatus";
