@@ -6,7 +6,7 @@ import {
   Routes,
   BrowserRouter,
 } from "react-router-dom";
-import { useAuth } from "util/hooks";
+import { useAuth } from "util/hooks/useAuth";
 
 import {
   BLOCKED_ACCESS,

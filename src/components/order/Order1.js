@@ -12,7 +12,6 @@ import {
   CaretRightOutlined,
 } from "@ant-design/icons";
 
-import ProductTable from "components/Products/ProductTable";
 import { dataProducts } from "./dataProduct";
 import { dataOrder } from "./dataOrder";
 
