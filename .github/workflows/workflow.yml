@@ -19,3 +19,6 @@ jobs:
         node-version: '16'
     - run: yarn install
     - run: yarn build
+    env:
+      CI: false
+
