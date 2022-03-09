@@ -19,6 +19,31 @@ jobs:
         node-version: '16'
     - run: yarn install
     - run: yarn build
+    - name: Upload application
+      uses: appleboy/scp-action@master
+      with:       
+          host: ${{ secrets.SSH_HOST  }}        
+          username: ${{ secrets.SSH_USERNAME }}      
+          password: ${{ secrets.SSH_PWD }}
+          port: 22
+          source: "build/*"      
+          target: "~/aposs-admin/build"
+          rm: true
+    - name: Deploy with docker
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST  }}        
+        username: ${{ secrets.SSH_USERNAME }}      
+        password: ${{ secrets.SSH_PWD }}
+        port: 22
+        script: | 
+          cd ~/aposs-admin 
+          git pull origin master
+          sudo docker container stop aposs_admin
+          sudo docker container rm -f aposs_admin
+          sudo docker image rm -f aposs_admin
+          sudo docker build -t aposs_admin .
+          sudo docker run -dp 5000:5000 --name aposs_admin aposs_admin
     env:
       CI: false
 
