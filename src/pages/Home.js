@@ -1,6 +1,6 @@
 import Layout, { Content, Footer, Header } from "antd/lib/layout/layout";
 import Sider from "antd/lib/layout/Sider";
-import Navigation from "component/shared/Navigation";
+import Navigation from "components/shared/Navigation";
 import React, { Component } from "react";
 import { Outlet } from "react-router-dom";
 
