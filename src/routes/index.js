@@ -22,7 +22,6 @@ import {
   EDIT_PRODUCT_FROM_CATEGORY,
   ADD_PRODUCT_FROM_CATEGORY,
 } from "./route.config";
-import Workspace from "components/dashboard/Workspace";
 
 import Login from "pages/Login";
 import Home from "pages/Home";
@@ -37,6 +36,7 @@ import Industries from "components/industries/Industries";
 import Category from "components/categories/Category";
 import EditProduct from "components/products/EditProduct";
 import Dashboard from "components/dashboard/Dashboard";
+import Workspace from "components/dashboard/Workspace";
 export default function AppRoute() {
   return (
     <div>
