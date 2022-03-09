@@ -36,7 +36,7 @@ import Industries from "components/industries/Industries";
 import Category from "components/categories/Category";
 import EditProduct from "components/products/EditProduct";
 import Dashboard from "components/dashboard/Dashboard";
-import Workspace from "components/dashboard/Workspace";
+// import Workspace from "components/dashboard/Workspace";
 export default function AppRoute() {
   return (
     <div>
@@ -61,7 +61,7 @@ export default function AppRoute() {
             />
             <Route path={ORDER_MANAGEMENT} element={<Order />} />
             <Route path={BLOCKED_ACCESS} element={<Blocked />} />
-            <Route path={WORKSPACE} element={<Workspace />} />
+            {/* <Route path={WORKSPACE} element={<Workspace />} /> */}
             <Route path="test" element={<Loading />} />
           </Route>
           <Route path={LOGIN} element={<Login />} />
