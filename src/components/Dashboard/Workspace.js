@@ -1,4 +1,4 @@
-import Breadcrumb from "components/shared/Breadcrumb";
+import Breadcrumb from "component/shared/Breadcrumb";
 import React from "react";
 import { DEFAULT_ROUTE } from "routes/route.config";
 import menIcon from "asset/men.png";

@@ -1,4 +1,4 @@
-import Breadcrumb from "components/shared/Breadcrumb";
+import Breadcrumb from "component/shared/Breadcrumb";
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
@@ -10,8 +10,8 @@ import {
 import menIcon from "asset/men.png";
 import { EditOutlined } from "@ant-design/icons";
 import { Col, Row, Tooltip } from "antd";
-import { AddProduct, ProductCard } from "components/products/Products1";
-import EditableContainer from "components/shared/EditableText";
+import { AddProduct, ProductCard } from "component/products/Products1";
+import EditableContainer from "component/shared/EditableText";
 
 export default function Category() {
   const { categoryId } = useParams();
