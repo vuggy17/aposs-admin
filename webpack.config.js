@@ -82,7 +82,7 @@ module.exports = ({ mode } = { mode: "production" }) => {
     },
     resolve: {
       modules: [path.join(__dirname, "node_modules")],
-      root: [path.resolve("./src")],
+      roots: [path.resolve("./src")],
       extensions: ["*", ".js", ".jsx", ".json"],
       preferRelative: true,
     },
