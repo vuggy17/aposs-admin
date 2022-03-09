@@ -81,10 +81,11 @@ module.exports = ({ mode } = { mode: "production" }) => {
       hot: true,
     },
     resolve: {
-      modules: [path.join(__dirname, "node_modules")],
-      roots: [path.resolve("./src")],
+      modules: [path.join(__dirname, "src"), "node_modules"],
       extensions: ["*", ".js", ".jsx", ".json"],
       preferRelative: true,
+      symlinks: false,
+      cacheWithContext: false,
     },
   };
 };
