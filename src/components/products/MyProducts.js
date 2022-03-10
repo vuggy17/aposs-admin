@@ -21,6 +21,9 @@ import {
   Tooltip,
 } from "antd";
 import Meta from "antd/lib/card/Meta";
+import { useAxios } from "api";
+import { ENP_PRODUCT } from "api/EndPoint";
+
 import Breadcrumb from "components/shared/Breadcrumb";
 import ProductStockStatus from "components/shared/ProductStockStatus";
 import React, { Component, useEffect, useState } from "react";
@@ -34,9 +37,15 @@ import { formatPrice } from "util/formatPrice";
 import useDebounce from "util/hooks/useDebouce";
 
 export default function Products() {
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [productEditing, setproductEditing] = useState(false);
   const [editProduct, setEditProduct] = useState();
+  // const [products, setProducts] = useState();
+  const { data: products, loading } = useAxios({
+    method: "POST",
+    url: ENP_PRODUCT,
+    option: {},
+  });
   const handleAddProduct = () => {
     setproductEditing(!productEditing);
   };
@@ -53,6 +62,7 @@ export default function Products() {
     if (editProduct) {
       setproductEditing(true);
     }
+    console.log(products);
   }, [editProduct]);
 
   return (

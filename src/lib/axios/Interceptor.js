@@ -60,4 +60,4 @@ function handleError(code = 0, message) {
   notification.error({ message: "Error", description: message });
 }
 
-export default axiosInstance;
+export { axiosInstance as axios };
