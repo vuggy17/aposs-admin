@@ -23,19 +23,18 @@ jobs:
       uses: garygrossgarten/github-action-scp@v0.7.3
       with:
         local: build
-        remote: '~/aposs-admin/build'
+        remote: home/duy/aposs-admin/build
         host: ${{ secrets.SSH_HOST  }}        
         username: ${{ secrets.SSH_USERNAME }}      
         password: ${{ secrets.SSH_PWD }}
         rmRemote: true
 
     - name: Deploy with docker
-      uses: fifsky/ssh-action@master
+      uses:  garygrossgarten/github-action-ssh@release
       with:
         host: ${{ secrets.SSH_HOST  }}        
         username: ${{ secrets.SSH_USERNAME }}      
-        pass: ${{ secrets.SSH_PWD }}
-        port: 22
+        password: ${{ secrets.SSH_PWD }}
         command: | 
           cd ~/aposs-admin 
           git pull origin master
@@ -43,7 +42,7 @@ jobs:
           sudo docker container rm -f aposs_admin
           sudo docker image rm -f aposs_admin
           sudo docker build -t aposs_admin .
-          sudo docker run -dp 5000:5000 --name aposs_admin aposs_admin
+          sudo docker run -dp 5000:3000 --name aposs_admin aposs_admin
     env:
       CI: false
 
