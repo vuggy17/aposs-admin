@@ -21,6 +21,9 @@ import {
   Tooltip,
 } from "antd";
 import Meta from "antd/lib/card/Meta";
+import { useAxios } from "hooks/useAxios";
+import { ENP_PRODUCT } from "api/EndPoint";
+
 import Breadcrumb from "components/shared/Breadcrumb";
 import ProductStockStatus from "components/shared/ProductStockStatus";
 import React, { Component, useEffect, useState } from "react";
@@ -31,12 +34,18 @@ import {
   PRODUCT_MANAGEMENT,
 } from "routes/route.config";
 import { formatPrice } from "util/formatPrice";
-import useDebounce from "util/hooks/useDebouce";
+import useDebounce from "hooks/useDebouce";
+import LocalStorageService from "services/LocalStorage";
 
 export default function Products() {
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [productEditing, setproductEditing] = useState(false);
   const [editProduct, setEditProduct] = useState();
+  // const [products, setProducts] = useState();
+  const { data: products, loading } = useAxios({
+    method: "GET",
+    url: ENP_PRODUCT,
+  });
   const handleAddProduct = () => {
     setproductEditing(!productEditing);
   };
@@ -48,6 +57,7 @@ export default function Products() {
   const onSearch = (term) => {
     console.log("searching for " + term);
   };
+  console.log(products);
 
   useEffect(() => {
     if (editProduct) {

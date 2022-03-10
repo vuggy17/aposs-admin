@@ -1,26 +1,28 @@
 import axios from "axios";
-import { getToken } from "util/storage/cookie";
 
 import { notification } from "antd";
 import { STATUS_ERROR } from "../../api/ApiStatus";
-import { LOGIN } from "api/EndPoint";
+import { ENP_TOKEN } from "api/EndPoint";
 import Environment from "environment/index";
+import LocalStorageService from "services/LocalStorage";
+import { LOGIN } from "routes/route.config";
 
 const axiosInstance = axios.create();
 
 // Add a request interceptor
 axiosInstance.interceptors.request.use(
   function (config) {
-    // inject jwt authenticaion token
-    config.headers = {
-      Authorization: "Bearer " + getToken("auth"),
-    };
+    if (!config.url.match("auth")) {
+      config.headers = {
+        Authorization: "Bearer " + LocalStorageService.getAuthToken(),
+      };
+    }
     config.baseURL = Environment.baseUrl;
-    console.log("base url", config.baseURL);
+    console.log(config);
     return config;
   },
   function (error) {
-    handleError(error.response.status);
+    handleError(error.response?.status);
     return Promise.reject(error);
   }
 );
@@ -34,6 +36,34 @@ axiosInstance.interceptors.response.use(
   },
   function (error) {
     // Any status codes that falls outside the range of 2xx cause this function to trigger
+    const originalRequest = error.config;
+
+    //  there is any previous get token request
+    if (
+      error.response?.status === 401 &&
+      originalRequest.url.match(ENP_TOKEN)
+    ) {
+      // window.location = LOGIN;
+      return Promise.reject(error);
+    }
+
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+      const refreshToken = LocalStorageService.getRefreshToken();
+      // make new axios call to get new auth token
+      return axiosInstance.post(ENP_TOKEN, refreshToken).then((res) => {
+        if (res.status === 201) {
+          LocalStorageService.setAuthToken(res.data);
+          // axiosInstance.defaults.headers.common["Authorization"] =
+          //   "Bearer " + LocalStorageService.getAuthToken();
+          axiosInstance.config.header = {
+            Authorization: "Bearer " + LocalStorageService.getAuthToken(),
+          };
+          return axiosInstance(originalRequest);
+        }
+      });
+    }
+
     handleError(error.response?.status, error.message);
     return Promise.reject(error);
   }
@@ -45,6 +75,9 @@ function handleError(code = 0, message) {
       message = "Unauthenticated, try login again";
       // TODO: turn on next line to rediect to login page if auth_token exprired
       // window.location = LOGIN;
+      break;
+    case STATUS_ERROR.HTTP_400_BAD_REQUEST:
+      message = "Bad request, check request url";
       break;
     case STATUS_ERROR.HTTP_404_NOT_FOUND:
       message = "Item not found";
@@ -60,4 +93,4 @@ function handleError(code = 0, message) {
   notification.error({ message: "Error", description: message });
 }
 
-export default axiosInstance;
+export { axiosInstance as axios };

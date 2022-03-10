@@ -4,7 +4,7 @@ import { AddCategoryModal } from "components/Categories/AddCategoryModal";
 import { CategoryListItem } from "components/Categories/CategoryListItem";
 import { EditCategoryModal } from "components/Categories/EditCategoryModal";
 import React, { useEffect, useState } from "react";
-import useDebounce from "util/hooks/useDebouce";
+import useDebounce from "hooks/useDebouce";
 import Breadcrumb from "../shared/Breadcrumb";
 
 export default function Industries() {

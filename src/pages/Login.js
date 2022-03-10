@@ -1,18 +1,21 @@
 import React, { Component } from "react";
 import { Form, Input, Button, Checkbox } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import axios from "lib/axios/Interceptor";
+import { axios } from "lib/axios/Interceptor";
+import { ENP_LOGIN } from "api/EndPoint";
+import LocalStorageService from "services/LocalStorage";
 export class Login extends Component {
   state = {
     cc: null,
   };
   getCategory() {}
   onFinish = () => {
-    axios.get("/api/v1/products").then((res) => {
-      this.setState({ cc: "dsa" }, () => {
-        console.log(this.state.cc);
+    axios
+      .post(ENP_LOGIN, { email: "admin@gmail.com", password: "123456789" })
+      .then(({ data: { accessToken, refreshToken } }) => {
+        LocalStorageService.setAuthToken(accessToken);
+        LocalStorageService.setRefreshToken(refreshToken);
       });
-    });
   };
 
   render() {
@@ -24,22 +27,23 @@ export class Login extends Component {
             name="normal_login"
             style={{ margin: "auto" }}
             initialValues={{
-              remember: true,
+              email: "admin@gmail.com",
+              password: "123456789",
             }}
             onFinish={this.onFinish}
           >
             <Form.Item
-              name="username"
+              name="email"
               rules={[
                 {
                   required: true,
-                  message: "Please input your Username!",
+                  message: "Please input your Email!",
                 },
               ]}
             >
               <Input
                 prefix={<UserOutlined className="site-form-item-icon" />}
-                placeholder="Username"
+                placeholder="Email"
               />
             </Form.Item>
             <Form.Item
