@@ -24,7 +24,7 @@ jobs:
       uses: garygrossgarten/github-action-scp@v0.7.3
       with:
         local: build
-        remote: '~/aposs-admin/build'
+        remote: home/vuggy/aposs-admin/build
         host: ${{ secrets.SSH_HOST  }}        
         username: ${{ secrets.SSH_USERNAME }}      
         password: ${{ secrets.SSH_PWD }}
