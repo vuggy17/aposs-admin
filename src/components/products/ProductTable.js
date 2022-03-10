@@ -8,9 +8,7 @@ import "./ProductTable.css"
 export const StorageContext = React.createContext();
 
 export default function ProductTable(props) {
-
-
-
+    
     return <StorageContext.Provider value={100}>
         <Table
             className="tb__product"

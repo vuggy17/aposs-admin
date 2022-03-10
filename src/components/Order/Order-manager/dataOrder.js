@@ -19,7 +19,7 @@ export const dataOrder= [
     },
     {
       id: '#122347',
-      statusOrder: "Cancel",
+      statusOrder: "Cancelled",
       name: 'Oliver Trag',
       address: 'London, UK',
       distance: '485 km',
