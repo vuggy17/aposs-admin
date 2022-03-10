@@ -19,16 +19,17 @@ jobs:
         node-version: '16'
     - run: yarn install
     - run: yarn build
+    
     - name: Upload application
-      uses: appleboy/scp-action@master
-      with:       
-          host: ${{ secrets.SSH_HOST  }}        
-          username: ${{ secrets.SSH_USERNAME }}      
-          password: ${{ secrets.SSH_PWD }}
-          port: 22
-          source: "build/*"      
-          target: "~/aposs-admin/build"
-          rm: true
+      uses: garygrossgarten/github-action-scp@v0.7.3
+      with:
+        local: build
+        remote: home/duy/aposs-admin/build
+        host: ${{ secrets.SSH_HOST  }}        
+        username: ${{ secrets.SSH_USERNAME }}      
+        password: ${{ secrets.SSH_PWD }}
+        rmRemote: true
+        
     - name: Deploy with docker
       uses:  appleboy/ssh-action@master
       with:
