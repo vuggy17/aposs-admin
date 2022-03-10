@@ -37,7 +37,7 @@ jobs:
         password: ${{ secrets.SSH_PWD }}
         command: | 
           cd ~/aposs-admin 
-          git pull origin master
+          sudo git pull origin master
           sudo docker container stop aposs_admin
           sudo docker container rm -f aposs_admin
           sudo docker image rm -f aposs_admin
