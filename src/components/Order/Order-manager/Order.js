@@ -5,7 +5,7 @@ import { Link, Outlet } from "react-router-dom";
 import { Table, Space } from "antd";
 
 import { Button, Input, List, Badge } from "antd";
-import useDebounce from "util/hooks/useDebouce";
+
 import Breadcrumb from "../../shared/Breadcrumb";
 import {
   CaretDownOutlined,
@@ -20,6 +20,7 @@ import { ORDER_MANAGEMENT } from "routes/route.config";
 
 import "./Order.css";
 import Navigation from "components/shared/Navigation";
+import useDebounce from "hooks/useDebouce";
 
 export default function Order() {
   const pages = [
