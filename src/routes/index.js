@@ -17,6 +17,7 @@ import {
   WORKSPACE,
   NEW_PRODUCT,
   EDIT_PRODUCT,
+  ORDER_DETAIL,
 } from "./route.config";
 import Workspace from "components/Dashboard/Workspace";
 
@@ -24,13 +25,14 @@ import Login from "pages/Login";
 import Home from "pages/Home";
 import Dashboard from "components/Dashboard";
 import Products from "components/products/Products";
-import Order from "components/order/Order";
+import Order from "components/Order/Order-manager/Order";
 import Blocked from "pages/Blocked";
 import PageNotFound from "pages/PageNotFound";
 import Loading from "pages/Loading";
 import Categories from "components/Categories/Categories";
 import CreateProduct from "components/products/CreateProduct";
 import EditProduct from "components/products/EditProduct";
+import OrderDetail from "components/Order/Order-detail/OrderDetail";
 
 export default function AppRoute() {
   return (
@@ -45,6 +47,7 @@ export default function AppRoute() {
             <Route path={NEW_PRODUCT} element={<CreateProduct />} />
             <Route path={EDIT_PRODUCT} element={<EditProduct />} />
             <Route path={ORDER_MANAGEMENT} element={<Order />} />
+            <Route path="order/:orderId" element={<OrderDetail />} />
             <Route path={BLOCKED_ACCESS} element={<Blocked />} />
             <Route path={WORKSPACE} element={<Workspace />} />
             <Route path="test" element={<Loading />} />
