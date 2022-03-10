@@ -12,4 +12,4 @@ COPY ./build ./
 RUN yarn global add serve
 
 # start app
-CMD ["serve", "-s", "build"]
+CMD ["serve", "-s"]
