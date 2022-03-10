@@ -36,7 +36,8 @@ jobs:
         host: ${{ secrets.SSH_HOST  }}        
         username: ${{ secrets.SSH_USERNAME }}      
         password: ${{ secrets.SSH_PWD }}
-        command: | 
+        port: 22
+        script: | 
           cd ~/aposs-admin 
           sudo git pull origin master
           sudo docker container stop aposs_admin
