@@ -1,4 +1,3 @@
-<<<<<<<< HEAD:src/components/Order/Order-manager/Order.js
 import React from "react"
 import { useState, useEffect, useLayoutEffect } from "react"
 import { Link, Outlet } from "react-router-dom";
@@ -8,33 +7,15 @@ import { Button, Input, List, Badge } from "antd";
 import useDebounce from "util/hooks/useDebouce";
 import Breadcrumb from "../../shared/Breadcrumb";
 import { CaretDownOutlined, CaretUpOutlined, CaretRightOutlined } from "@ant-design/icons"
-========
-import React from "react";
-import { useState, useEffect, useLayoutEffect } from "react";
-import { Link } from "react-router-dom";
-
-import { Table, Space } from "antd";
-import { Button, Input, List } from "antd";
-import useDebounce from "util/hooks/useDebouce";
-import Breadcrumb from "../shared/Breadcrumb";
-import {
-  CaretDownOutlined,
-  CaretUpOutlined,
-  CaretRightOutlined,
-} from "@ant-design/icons";
->>>>>>>> eb4f3dd5ee2eee6edd0d808632bd2f528d45b1b4:src/components/Order/Order-manager/MyOrder.js
 
 import { dataProducts } from "./dataProduct";
 import { dataOrder } from "./dataOrder";
 
 import { ORDER_MANAGEMENT } from "routes/route.config";
-<<<<<<<< HEAD:src/components/Order/Order-manager/Order.js
+
 import "./Order.css"
 import Navigation from "components/shared/Navigation";
 
-========
-import "./MyOrder.css";
->>>>>>>> eb4f3dd5ee2eee6edd0d808632bd2f528d45b1b4:src/components/Order/Order-manager/MyOrder.js
 
 export default function Order() {
   const pages = [
@@ -70,23 +51,6 @@ export default function Order() {
     setOrderList(data);
   }, [products]);
 
-<<<<<<<< HEAD:src/components/Order/Order-manager/Order.js
-========
-  function formatProduct({ key, img, name, color, size, amount, price }) {
-    return {
-      key,
-      info: {
-        img,
-        name,
-        color,
-        size,
-      },
-      amount,
-      price,
-    };
-  }
-
->>>>>>>> eb4f3dd5ee2eee6edd0d808632bd2f528d45b1b4:src/components/Order/Order-manager/MyOrder.js
   const onSearch = (e) => {
     const searchTerm = e.target.value;
     // TODO: api call and filter items
@@ -100,7 +64,6 @@ export default function Order() {
       key: "id",
     },
     {
-<<<<<<<< HEAD:src/components/Order/Order-manager/Order.js
       title: 'STATUS',
       dataIndex: 'statusOrder',
       key: 'statusOrder',
@@ -109,11 +72,6 @@ export default function Order() {
         else if (statusOrder == 'Pending') return <Badge color='yellow' text={statusOrder} />
         if (statusOrder == 'Cancelled') return <Badge color='red' text={statusOrder} />
       }
-========
-      title: "STATUS",
-      dataIndex: "statusOrder",
-      key: "statusOrder",
->>>>>>>> eb4f3dd5ee2eee6edd0d808632bd2f528d45b1b4:src/components/Order/Order-manager/MyOrder.js
     },
     {
       title: "OPERATORS",
@@ -152,23 +110,13 @@ export default function Order() {
     },
     // Open order detail in new tab
     {
-<<<<<<<< HEAD:src/components/Order/Order-manager/Order.js
       title: '',
       key: 'orderDetail',
       render: (text, record) => {
         // Substring for remove #(anchor) in id
         return <Link to={`/order/${record.id.substring(1)}`}><CaretRightOutlined style={{ color: 'black' }} /></Link>
       }
-========
-      title: "",
-      key: "orderDetail",
-      render: () => (
-        <Link to={`${ORDER_MANAGEMENT}/:id`}>
-          <CaretRightOutlined style={{ color: "black" }} />
-        </Link>
-      ),
->>>>>>>> eb4f3dd5ee2eee6edd0d808632bd2f528d45b1b4:src/components/Order/Order-manager/MyOrder.js
-    },
+    }
   ];
 
   return (
@@ -191,34 +139,7 @@ export default function Order() {
         className="tb__order"
         dataSource={orderList}
         columns={columnsOrder}
-      // expandable={{
-      //   expandedRowRender: record => {
-
-<<<<<<<< HEAD:src/components/Order/Order-manager/Order.js
-      //     return <ProductTable source={(products.filter(product => product.id == record.key)).map(formatProduct)} />
-      //   }
-      //   ,
-      //   expandIcon: ({ expanded, onExpand, record }) => expanded ? (
-      //     <CaretUpOutlined onClick={e => onExpand(record, e)} />
-      //   ) : (
-      //     <CaretDownOutlined onClick={e => onExpand(record, e)} />
-      //   )
-      // }}
       />
-========
-        //     return <ProductTable source={(products.filter(product => product.id == record.key)).map(formatProduct)} />
-        //   }
-        //   ,
-        //   expandIcon: ({ expanded, onExpand, record }) => expanded ? (
-        //     <CaretUpOutlined onClick={e => onExpand(record, e)} />
-        //   ) : (
-        //     <CaretDownOutlined onClick={e => onExpand(record, e)} />
-        //   )
-        // }}
-      >
-        {" "}
-      </Table>
->>>>>>>> eb4f3dd5ee2eee6edd0d808632bd2f528d45b1b4:src/components/Order/Order-manager/MyOrder.js
     </div>
   );
 }

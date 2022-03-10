@@ -1,8 +1,8 @@
 import { PlusOutlined } from "@ant-design/icons";
 import { Button, Input, List } from "antd";
-import { AddCategoryModal } from "components/categories/AddCategoryModal";
-import { CategoryListItem } from "components/categories/CategoryListItem";
-import { EditCategoryModal } from "components/categories/EditCategoryModal";
+import { AddCategoryModal } from "components/Categories/AddCategoryModal";
+import { CategoryListItem } from "components/Categories/CategoryListItem";
+import { EditCategoryModal } from "components/Categories/EditCategoryModal";
 import React, { useEffect, useState } from "react";
 import useDebounce from "util/hooks/useDebouce";
 import Breadcrumb from "../shared/Breadcrumb";

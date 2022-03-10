@@ -1,6 +1,6 @@
-import React, {useContext} from 'react'
+import React, { useContext } from 'react'
 
-import {StorageContext} from './ProductTable';
+import { StorageContext } from './ProductTable';
 
 export const columnsProduct = [
   {
@@ -23,9 +23,8 @@ export const columnsProduct = [
     dataIndex: 'amount',
     key: 'amount',
     render: amount => {
-      const storage=useContext(StorageContext)
       return <>
-        <span>{amount}</span><span style={{color: '#bfbfbf'}}>/{storage}</span>
+        <span>{amount}</span><span style={{ color: '#bfbfbf' }}>/100</span>
       </>
 
     }

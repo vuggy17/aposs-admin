@@ -4,7 +4,7 @@ import Breadcrumb from "components/shared/Breadcrumb";
 import { ORDER_DETAIL, ORDER_MANAGEMENT } from "routes/route.config";
 import { useParams } from "react-router-dom";
 import { Col, Row, Steps, Table } from "antd";
-import ProductTable from "components/Products/ProductTable";
+import ProductTable from "components/products/ProductTable";
 import { dataProducts } from "../Order-manager/dataProduct";
 import FormatProduct from "components/products/FormatProduct";
 
