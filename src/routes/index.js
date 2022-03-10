@@ -1,4 +1,4 @@
-import OrderDetail from "components/Order/Order-detail/OrderDetail";
+import OrderDetail from "components/order/order-detail/OrderDetail";
 import CreateProduct from "components/products/CreateProduct";
 import EditProduct from "components/products/EditProduct";
 import Products from "components/products/MyProducts";
@@ -35,7 +35,7 @@ import Dashboard from "components/dashboard/MyDashboard";
 import Categories from "components/categories/MyCategories";
 import Category from "components/categories/Category";
 import Industries from "components/industries/MyIndustries";
-import Order from "components/Order/Order-manager/Order";
+import Order from "components/order/order-manager/Order";
 
 // import Workspace from "components/dashboard/Workspace";
 export default function AppRoute() {
