@@ -17,7 +17,7 @@ export const useAxios = ({ url, method, option }) => {
         setLoading(false);
       } else {
         const response = await axios({ method, url, option });
-        const data = await response.json();
+        const data = await response.data;
         cache.current[url] = data; // set response in cache;
         setData(data);
         setLoading(false);

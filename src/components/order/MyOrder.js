@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import { Table, Space } from "antd";
 import { Button, Input, List } from "antd";
-import useDebounce from "util/hooks/useDebouce";
+import useDebounce from "hooks/useDebouce";
 import Breadcrumb from "../shared/Breadcrumb";
 import {
   CaretDownOutlined,
