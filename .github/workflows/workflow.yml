@@ -1,0 +1,48 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Node.js CI
+
+on:
+  pull_request:
+    branches: [ master ]
+  push:
+    branches: [master]
+jobs:
+  build:
+
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+    - run: yarn install
+    - run: yarn build
+    - name: Upload application
+      uses: garygrossgarten/github-action-scp@v0.7.3
+      with:
+        local: build
+        remote: home/duy/aposs-admin/build
+        host: ${{ secrets.SSH_HOST  }}        
+        username: ${{ secrets.SSH_USERNAME }}      
+        password: ${{ secrets.SSH_PWD }}
+        rmRemote: true
+
+    - name: Deploy with docker
+      uses:  garygrossgarten/github-action-ssh@release
+      with:
+        host: ${{ secrets.SSH_HOST  }}        
+        username: ${{ secrets.SSH_USERNAME }}      
+        password: ${{ secrets.SSH_PWD }}
+        command: | 
+          cd ~/aposs-admin 
+          sudo git pull origin master
+          sudo docker container stop aposs_admin
+          sudo docker container rm -f aposs_admin
+          sudo docker image rm -f aposs_admin
+          sudo docker build -t aposs_admin .
+          sudo docker run -dp 5000:3000 --name aposs_admin aposs_admin
+    env:
+      CI: false
+

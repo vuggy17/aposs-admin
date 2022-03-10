@@ -33,11 +33,6 @@ import {
 import { formatPrice } from "util/formatPrice";
 import useDebounce from "util/hooks/useDebouce";
 
-const pages = [
-  { url: "#", title: "Home" },
-  { url: PRODUCT_MANAGEMENT, title: "Products" },
-];
-
 export default function Products() {
   const [loading, setLoading] = useState(false);
   const [productEditing, setproductEditing] = useState(false);
@@ -63,7 +58,7 @@ export default function Products() {
   return (
     <>
       <div className="bg-white p-9 pl-6 pt-4">
-        <Breadcrumb pages={pages} />
+        <Breadcrumb />
         <div className="pt-4">
           <h2>Products</h2>
         </div>
@@ -91,9 +86,8 @@ export default function Products() {
               price: Math.round(Math.random() * 4000000),
             })
             .map(({ title, description, price }, index) => (
-              <Col className="gutter-row" span={6}>
+              <Col className="gutter-row" span={6} key={index}>
                 <ProductCard
-                  key={index}
                   title={title + index}
                   description={description}
                   onEditPressed={onEditProduct({
@@ -123,15 +117,14 @@ export default function Products() {
         <p className="text-xl">
           {editProduct?.title}
           <Tooltip title="Edit product">
-            <Button type="link" href={`${editProduct?.title}`}>
+            <Button
+              type="link"
+              href={`${PRODUCT_MANAGEMENT}/${editProduct?.title}`}
+            >
               <EditOutlined key="edit" />
             </Button>
           </Tooltip>
         </p>
-        {/*
-        <p>{editProduct?.description}</p>
-        <p>{editProduct?.price}</p>
-        <p>{editProduct?.units}</p> */}
         <Descriptions
           layout="horizontal"
           column={1}
@@ -165,8 +158,7 @@ export default function Products() {
     </>
   );
 }
-function ProductCard({
-  key,
+export function ProductCard({
   loading,
   title,
   description,
@@ -197,7 +189,6 @@ function ProductCard({
   );
   return (
     <Card
-      key={key}
       hoverable={false}
       actions={[
         <EditOutlined key="edit" onClick={onEditPressed} />,
@@ -220,10 +211,10 @@ function ProductCard({
   );
 }
 
-function AddProduct() {
+export function AddProduct({ path = NEW_PRODUCT }) {
   const navigate = useNavigate();
   const handlePress = () => {
-    navigate(NEW_PRODUCT);
+    navigate(path);
   };
   return (
     <Button

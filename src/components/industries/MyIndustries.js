@@ -1,18 +1,13 @@
 import { PlusOutlined } from "@ant-design/icons";
 import { Button, Input, List } from "antd";
+import { AddCategoryModal } from "components/categories/AddCategoryModal";
+import { CategoryListItem } from "components/categories/CategoryListItem";
+import { EditCategoryModal } from "components/categories/EditCategoryModal";
 import React, { useEffect, useState } from "react";
-import { CATEGORY_MANAGEMENT } from "routes/route.config";
 import useDebounce from "util/hooks/useDebouce";
 import Breadcrumb from "../shared/Breadcrumb";
-import { AddCategoryModal } from "./AddCategoryModal";
-import { CategoryItem } from "./CategoryItem";
-import { EditCategoryModal } from "./EditCategoryModal";
 
-export default function Categories() {
-  const pages = [
-    { url: "#", title: "Home" },
-    { url: CATEGORY_MANAGEMENT, title: "Categories" },
-  ];
+export default function Industries() {
   const [createVisible, setcreateVisible] = useState(false);
   const [editVisible, setEditVisible] = useState(false);
 
@@ -32,16 +27,16 @@ export default function Categories() {
   return (
     <>
       <div className="bg-white p-9 pl-6 pt-4">
-        <Breadcrumb pages={pages} />
+        <Breadcrumb />
         <div className="pt-4">
-          <h2>Categories</h2>
+          <h2>Industry</h2>
         </div>
       </div>
 
       <div className=" mt-6 m-auto w-1/2">
         <Input.Search
           onChange={useDebounce(onSearch)}
-          placeholder="Category name"
+          placeholder="Industry name"
           enterButton="Search"
           size="large"
         ></Input.Search>
@@ -56,7 +51,7 @@ export default function Categories() {
           dataSource={[
             ...Array(6).fill({
               avatar: "https://joeschmoe.io/api/v1/random",
-              title: "Xuan Ha collection",
+              title: "Interial" + Math.round(Math.random() * 29),
               description:
                 "Ant Design, a design language for background applications, is refined by Ant UED Team",
               id: Math.random(),
@@ -64,7 +59,7 @@ export default function Categories() {
           ]}
           // TODO: change key to id
           renderItem={(item, index) => (
-            <CategoryItem
+            <CategoryListItem
               key={index}
               item={item}
               setEditItem={setEditingCategory}
