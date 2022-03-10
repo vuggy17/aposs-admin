@@ -1,8 +1,3 @@
-import Category from "components/Categories/Category";
-import Categories from "components/Categories/MyCategories";
-import Dashboard from "components/Dashboard/MyDashboard";
-import Industries from "components/industries/MyIndustries";
-import Order from "components/Order/Order-manager/Order";
 import OrderDetail from "components/Order/Order-detail/OrderDetail";
 import CreateProduct from "components/products/CreateProduct";
 import EditProduct from "components/products/EditProduct";
@@ -36,6 +31,11 @@ import {
   EDIT_PRODUCT_FROM_CATEGORY,
   ADD_PRODUCT_FROM_CATEGORY,
 } from "./route.config";
+import Dashboard from "components/dashboard/MyDashboard";
+import Categories from "components/categories/MyCategories";
+import Category from "components/categories/Category";
+import Industries from "components/industries/MyIndustries";
+import Order from "components/Order/Order-manager/Order";
 
 // import Workspace from "components/dashboard/Workspace";
 export default function AppRoute() {
@@ -61,7 +61,10 @@ export default function AppRoute() {
               element={<CreateProduct />}
             />
             <Route path={ORDER_MANAGEMENT} element={<Order />} />
-            <Route path={`${ORDER_MANAGEMENT}/:orderId`} element={<OrderDetail />} />
+            <Route
+              path={`${ORDER_MANAGEMENT}/:orderId`}
+              element={<OrderDetail />}
+            />
             <Route path={BLOCKED_ACCESS} element={<Blocked />} />
             {/* <Route path={WORKSPACE} element={<Workspace />} /> */}
             <Route path="test" element={<Loading />} />
