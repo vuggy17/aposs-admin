@@ -31,11 +31,11 @@ export default function EditProduct({ title, price, units, description }) {
               //   onFinish={onFinish}
               //   validateMessages={validateMessages}
             >
-              <Form.Item>
-                <Input disabled />
+              <Form.Item label="Name">
+                <Input defaultValue={productId} disabled />
               </Form.Item>
 
-              <Form.Item name={["user", "introduction"]} label="Introduction">
+              <Form.Item name={["user", "description"]} label="Description">
                 <Input.TextArea rows={6} />
               </Form.Item>
               <Form.Item name={["user", "Category"]} label="Category">

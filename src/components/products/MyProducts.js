@@ -35,17 +35,30 @@ import {
 } from "routes/route.config";
 import { formatPrice } from "util/formatPrice";
 import useDebounce from "hooks/useDebouce";
-import LocalStorageService from "services/LocalStorage";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  deleteWithId,
+  getProducts,
+  selectAllProducts,
+  set,
+} from "redux/slices/productsSlice";
 
 export default function Products() {
-  // const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);\
+  const dispatch = useDispatch();
+
   const [productEditing, setproductEditing] = useState(false);
   const [editProduct, setEditProduct] = useState();
   // const [products, setProducts] = useState();
-  const { data: products, loading } = useAxios({
-    method: "GET",
-    url: ENP_PRODUCT,
-  });
+  // const {
+  //   data: { content: products },
+  //   loading,
+  // } = useAxios({
+  //   method: "GET",
+  //   url: ENP_PRODUCT,
+  // });
+  let products = [];
+  products = useSelector(selectAllProducts);
   const handleAddProduct = () => {
     setproductEditing(!productEditing);
   };
@@ -56,14 +69,18 @@ export default function Products() {
 
   const onSearch = (term) => {
     console.log("searching for " + term);
+    // dispatch(deleteWithId(37));
   };
-  console.log(products);
 
   useEffect(() => {
     if (editProduct) {
       setproductEditing(true);
     }
   }, [editProduct]);
+
+  useEffect(() => {
+    dispatch(getProducts());
+  }, []);
 
   return (
     <>
@@ -88,28 +105,30 @@ export default function Products() {
           <Col className="gutter-row" span={6}>
             <AddProduct handlePress={handleAddProduct} />
           </Col>
-          {Array(6)
-            .fill({
-              title: "Xiao Feng Necklace",
-              description:
-                "Lorem, ipsum dolor sit amet  temporibus, sunt qui asperiores, voluptates beatae est. Sunt pariatur, exercitationem nisi magnam vel porro.",
-              price: Math.round(Math.random() * 4000000),
-            })
-            .map(({ title, description, price }, index) => (
-              <Col className="gutter-row" span={6} key={index}>
+          {products?.map(
+            ({
+              name,
+              description = "Some fancy description hehe huhu illo cupiditate autem doloremque voluptatibus officiis voluptatem ",
+              price,
+              id,
+              image,
+            }) => (
+              <Col className="gutter-row" span={6} key={id}>
                 <ProductCard
-                  title={title + index}
+                  title={name}
                   description={description}
                   onEditPressed={onEditProduct({
-                    title: title + index,
+                    title: name,
                     description,
                     price,
                   })}
                   price={price}
+                  image={image}
                   stockStatus={Math.round(Math.random() * 100)}
                 />
               </Col>
-            ))}
+            )
+          )}
         </Row>
       </div>
 
@@ -174,6 +193,7 @@ export function ProductCard({
   description,
   onEditPressed,
   stockStatus,
+  image,
 }) {
   const menu = (
     <Menu>
@@ -202,15 +222,15 @@ export function ProductCard({
       hoverable={false}
       actions={[
         <EditOutlined key="edit" onClick={onEditPressed} />,
-        <Dropdown overlay={menu} placement="bottomCenter">
+        <Dropdown overlay={menu} placement="bottom">
           <EllipsisOutlined key="ellipsis" />
         </Dropdown>,
       ]}
     >
       <Skeleton loading={loading} avatar active>
         <Meta
-          style={{ minHeight: 150 }}
-          avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
+          style={{ minHeight: 120 }}
+          avatar={<Avatar src={image} alt="error" />}
           title={title}
           description={description}
         />
