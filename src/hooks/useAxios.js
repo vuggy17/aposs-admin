@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 export const useAxios = ({ url, method, option }) => {
   const cache = useRef({});
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState();
+  const [data, setData] = useState({});
 
   useEffect(() => {
     if (!url) return;
