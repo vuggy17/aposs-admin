@@ -10,20 +10,22 @@ on:
     branches: [master]
 jobs:
   build:
-
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v2
       with:
         node-version: '16'
+        
     - run: yarn install
+    
     - name: Create env file
-        run:|
-          touch .env
-          echo REACT_APP_BASE_URL=${{secrets.API_ENDPOINT}} >> .env
-          echo REACT_APP_MEDIA_URL=${{ secrets.MEDIA_ENDPOINT }} >> .env
-          cat .env
+      run: |
+        touch .env
+        echo REACT_APP_BASE_URL=${{secrets.API_ENDPOINT}} >> .env
+        echo REACT_APP_MEDIA_URL=${{ secrets.MEDIA_ENDPOINT }} >> .env
+        cat .env
+        
     - run: yarn build
     
     - name: Upload application
