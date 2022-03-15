@@ -27,7 +27,7 @@ import { ENP_PRODUCT } from "api/EndPoint";
 import Breadcrumb from "components/shared/Breadcrumb";
 import ProductStockStatus from "components/shared/ProductStockStatus";
 import React, { Component, useEffect, useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import {
   EDIT_PRODUCT,
   NEW_PRODUCT,
@@ -36,27 +36,18 @@ import {
 import { formatPrice } from "util/formatPrice";
 import useDebounce from "hooks/useDebouce";
 import { useDispatch, useSelector } from "react-redux";
+import { getAllProducts, selectAllProducts, set } from "redux/slices/product";
+import { axios } from "lib/axios/Interceptor";
 import {
-  deleteWithId,
-  getProducts,
-  selectAllProducts,
-  set,
-} from "redux/slices/productsSlice";
+  categoryUpdated,
+  deleteProductOfCategory,
+} from "redux/slices/category";
 
 export default function Products() {
-  // const [loading, setLoading] = useState(false);\
   const dispatch = useDispatch();
 
   const [productEditing, setproductEditing] = useState(false);
   const [editProduct, setEditProduct] = useState();
-  // const [products, setProducts] = useState();
-  // const {
-  //   data: { content: products },
-  //   loading,
-  // } = useAxios({
-  //   method: "GET",
-  //   url: ENP_PRODUCT,
-  // });
   let products = [];
   products = useSelector(selectAllProducts);
   const handleAddProduct = () => {
@@ -79,7 +70,7 @@ export default function Products() {
   }, [editProduct]);
 
   useEffect(() => {
-    dispatch(getProducts());
+    dispatch(getAllProducts());
   }, []);
 
   return (
@@ -121,6 +112,7 @@ export default function Products() {
                     title: name,
                     description,
                     price,
+                    id,
                   })}
                   price={price}
                   image={image}
@@ -146,12 +138,12 @@ export default function Products() {
         <p className="text-xl">
           {editProduct?.title}
           <Tooltip title="Edit product">
-            <Button
-              type="link"
-              href={`${PRODUCT_MANAGEMENT}/${editProduct?.title}`}
+            <Link
+              to={`/${PRODUCT_MANAGEMENT}/${editProduct?.title}`}
+              state={{ id: editProduct?.id }}
             >
               <EditOutlined key="edit" />
-            </Button>
+            </Link>
           </Tooltip>
         </p>
         <Descriptions
@@ -194,25 +186,21 @@ export function ProductCard({
   onEditPressed,
   stockStatus,
   image,
+  id,
+  handleDelete,
 }) {
   const menu = (
     <Menu>
-      <Menu.Item>
+      <Menu.Item key={id}>
         <Popconfirm
           placement="topLeft"
           title="Pernamently delete this product"
-          onConfirm={() => alert("deleting")}
+          onConfirm={() => handleDelete(id)}
           okText="OK"
           okButtonProps={{ danger: true }}
           cancelText="Cancel"
         >
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://www.antgroup.com"
-          >
-            Delete
-          </a>
+          Delete
         </Popconfirm>
       </Menu.Item>
     </Menu>
@@ -241,10 +229,10 @@ export function ProductCard({
   );
 }
 
-export function AddProduct({ path = NEW_PRODUCT }) {
+export function AddProduct({ path = NEW_PRODUCT, state }) {
   const navigate = useNavigate();
   const handlePress = () => {
-    navigate(path);
+    navigate(path, { state: state });
   };
   return (
     <Button

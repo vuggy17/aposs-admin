@@ -7,11 +7,13 @@ import { ENP_PRODUCT } from "api/EndPoint";
 import { useAxios } from "hooks/useAxios";
 import { axios } from "lib/axios/Interceptor";
 
-export const productAdapter = createEntityAdapter();
+export const productAdapter = createEntityAdapter({
+  selectId: (p) => p.name,
+});
 const initialState = productAdapter.getInitialState();
 
 // First, create the thunk
-export const getProducts = createAsyncThunk(
+export const getAllProducts = createAsyncThunk(
   "products/getProducts",
   async () => {
     const response = await axios.get(ENP_PRODUCT);
@@ -38,7 +40,7 @@ export const productSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getProducts.fulfilled, (state, action) => {
+    builder.addCase(getAllProducts.fulfilled, (state, action) => {
       //   console.log(action.payload);
       productAdapter.upsertMany(state, action.payload.content);
     });

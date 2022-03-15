@@ -21,7 +21,7 @@ export function EditCategoryModal({ visible, handleClose, initialValues }) {
         onFinish={editCategory}
         initialValues={initialValues}
       >
-        <Form.Item name="title" label="Title" rules={[{ required: true }]}>
+        <Form.Item name="name" label="Title" rules={[{ required: true }]}>
           <Input />
         </Form.Item>
         <Form.Item name="description" label="Description">
