@@ -1,6 +1,6 @@
 import { Avatar, Button, List, Popover } from "antd";
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export function CategoryListItem({ index, item, setEditItem }) {
   const [confirmVisible, setconfirmVisible] = useState(false);
@@ -22,7 +22,12 @@ export function CategoryListItem({ index, item, setEditItem }) {
           title="Delete category will make all product in this category become 'Uncategoried'"
           content={
             <div className="text-right">
-              <Button type="primary" className="mr-2" onClick={deleteCategory}>
+              <Button
+                type="primary"
+                className="mr-2"
+                onClick={deleteCategory}
+                danger
+              >
                 OK
               </Button>
               <Button title="Cancel" onClick={(_) => setconfirmVisible(false)}>
@@ -42,9 +47,9 @@ export function CategoryListItem({ index, item, setEditItem }) {
       ]}
     >
       <List.Item.Meta
-        avatar={<Avatar src={item.avatar} />}
-        title={<a href={`${pathname}/${item.title}`}>{item.title}</a>}
-        description={item.description}
+        avatar={<Avatar src={item.image} />}
+        title={<Link to={`${pathname}/${item.name}`}>{item.name}</Link>}
+        description="Some fancy description necessitatibus recusandae dignissimos ut itaque explicabo soluta."
       />
     </List.Item>
   );
