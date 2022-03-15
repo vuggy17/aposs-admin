@@ -8,10 +8,10 @@ export const ORDER_DETAIL = `/order/:orderId`;
 export const DEFAULT_ROUTE = "/";
 export const WORKSPACE = "workspace";
 export const NEW_PRODUCT = `/${PRODUCT_MANAGEMENT}/new`;
-export const EDIT_PRODUCT = `/${PRODUCT_MANAGEMENT}/:productId`;
-export const CATEGORY_DETAIL = `/${CATEGORY_MANAGEMENT}/:categoryId`;
-export const EDIT_PRODUCT_FROM_CATEGORY = `${CATEGORY_MANAGEMENT}/:categoryId/:productId`;
-export const ADD_PRODUCT_FROM_CATEGORY = `${CATEGORY_MANAGEMENT}/:categoryId/new-product`;
+export const EDIT_PRODUCT = `/${PRODUCT_MANAGEMENT}/:productName`;
+export const CATEGORY_DETAIL = `/${CATEGORY_MANAGEMENT}/:categoryName`;
+export const EDIT_PRODUCT_FROM_CATEGORY = `${CATEGORY_MANAGEMENT}/:categoryName/:productName`;
+export const ADD_PRODUCT_FROM_CATEGORY = `${CATEGORY_MANAGEMENT}/:categoryName/new-product`;
 
 // Add new route here for menu lighting when navigating in browser
 export const routes = {
@@ -31,11 +31,11 @@ export const breadcumbRoutes = [
   { path: INDUSTRY_MANAGEMENT, breadcrumb: "Industries" },
   {
     path: CATEGORY_DETAIL,
-    breadcrumb: (props) => DynamicBreadcrumb(props, "categoryId"),
+    breadcrumb: (props) => DynamicBreadcrumb(props, "categoryName"),
   },
   {
     path: EDIT_PRODUCT,
-    breadcrumb: (props) => DynamicBreadcrumb(props, "productId"),
+    breadcrumb: (props) => DynamicBreadcrumb(props, "productName"),
   },
   {
     path: ADD_PRODUCT_FROM_CATEGORY,
@@ -43,7 +43,7 @@ export const breadcumbRoutes = [
   },
   {
     path: EDIT_PRODUCT_FROM_CATEGORY,
-    breadcrumb: (props) => DynamicBreadcrumb(props, "productId"),
+    breadcrumb: (props) => DynamicBreadcrumb(props, "productName"),
   },
 ];
 

@@ -1,32 +1,57 @@
 import Breadcrumb from "components/shared/Breadcrumb";
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import {
-  ADD_PRODUCT_FROM_CATEGORY,
-  CATEGORY_MANAGEMENT,
-  EDIT_PRODUCT_FROM_CATEGORY,
-  PRODUCT_MANAGEMENT,
-} from "routes/route.config";
-import menIcon from "asset/men.png";
+import { CATEGORY_MANAGEMENT } from "routes/route.config";
 import { EditOutlined } from "@ant-design/icons";
-import { Col, Row, Tooltip } from "antd";
+import { Col, message, notification, Row, Tooltip } from "antd";
 import { AddProduct, ProductCard } from "components/products/MyProducts";
 import EditableContainer from "components/shared/EditableText";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  categoryUpdated,
+  getAllCategories,
+  selectCategoryById,
+} from "redux/slices/category";
+
+import { ENP_PRODUCT } from "api/EndPoint";
+import { axios } from "lib/axios/Interceptor";
 
 export default function Category() {
-  const { categoryId } = useParams();
-
+  const { categoryName } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { image, name, id, products } =
+    useSelector((state) => selectCategoryById(state, categoryName)) || {};
+
+  const deleteProduct = (prodId) => {
+    axios.delete(ENP_PRODUCT + "/" + prodId).then((res) => {
+      console.log(res);
+      notification.success({
+        message: "Product deleted",
+      });
+      dispatch(
+        categoryUpdated({
+          id: name,
+          changes: {
+            products: products.filter((p) => p.id !== prodId),
+          },
+        })
+      );
+    });
+  };
+  useEffect(() => {
+    dispatch(getAllCategories());
+  }, []);
   return (
     <>
       <div className="bg-white p-9 pl-6 pt-4">
         <Breadcrumb />
         <div className="pt-4 flex">
-          <div className="relative">
+          <div className="relative mr-2 p-2">
             <img
-              src={menIcon}
-              alt="cc"
-              className="rounded-full "
+              src={image}
+              alt="fail"
+              className="rounded-full"
               width={100}
             ></img>
             <div className="absolute transition-all duration-300 hover:opacity-60 bg-black h-full w-full left-0 top-0 opacity-0 text-white text-center">
@@ -44,7 +69,7 @@ export default function Category() {
             <Tooltip title="Click to start editing" placement="rightTop">
               <span>
                 <EditableContainer>
-                  <EditableContainer.Header value={categoryId} />
+                  <EditableContainer.Header value={name} />
                 </EditableContainer>
               </span>
             </Tooltip>
@@ -73,29 +98,30 @@ export default function Category() {
           <Row gutter={[8, 8]}>
             <Col className="gutter-row" span={6}>
               <AddProduct
-                path={`/${CATEGORY_MANAGEMENT}/${categoryId}/new-product`}
+                path={`/${CATEGORY_MANAGEMENT}/${categoryName}/new-product`}
+                state={{ categoryId: id }}
                 // handlePress={handleAddProduct}
               />
             </Col>
-            {Array(6)
-              .fill({
-                title: "Xiao Feng Necklace",
-                description:
-                  "Lorem, ipsum dolor sit amet  temporibus, sunt qui asperiores, voluptates beatae est. Sunt pariatur, exercitationem nisi magnam vel porro.",
-                price: Math.round(Math.random() * 4000000),
-              })
-              .map(({ title, description, price }, index) => (
-                <Col className="gutter-row" span={6} key={index}>
+            {products &&
+              products.length > 0 &&
+              products.map((item) => (
+                <Col className="gutter-row" span={6} key={item.id}>
                   <ProductCard
-                    title={title + index}
-                    description={description}
+                    title={item.name}
+                    description="Some fancy description necessitatibus recusandae dignissimos ut itaque explicabo soluta."
                     onEditPressed={() =>
                       navigate(
-                        `/${CATEGORY_MANAGEMENT}/${categoryId}/${title + index}`
+                        `/${CATEGORY_MANAGEMENT}/${categoryName}/${item.name}`,
+                        { state: { id: item.id } }
                       )
                     }
-                    price={price}
+                    price={item.price}
                     stockStatus={Math.round(Math.random() * 100)}
+                    image={item.image}
+                    id={item.id}
+                    categoryId={name}
+                    handleDelete={deleteProduct}
                   />
                 </Col>
               ))}

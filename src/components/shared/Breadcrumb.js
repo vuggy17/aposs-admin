@@ -1,5 +1,6 @@
 import { Breadcrumb } from "antd";
 import React from "react";
+import { Link } from "react-router-dom";
 import { breadcumbRoutes } from "routes/route.config";
 import useBreadcrumbs from "use-react-router-breadcrumbs";
 export default function CustomBreadcrumb() {
@@ -8,7 +9,7 @@ export default function CustomBreadcrumb() {
     <Breadcrumb>
       {breadcrumbs.map(({ match, breadcrumb }, index) => (
         <Breadcrumb.Item key={index}>
-          <a href={match.pathname}>{breadcrumb}</a>
+          <Link to={match.pathname}>{breadcrumb}</Link>
         </Breadcrumb.Item>
       ))}
     </Breadcrumb>

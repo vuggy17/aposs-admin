@@ -44,7 +44,7 @@ axiosInstance.interceptors.response.use(
       (error.response?.status === 400 || error.response?.status === 401) &&
       originalRequest.url.match(ENP_TOKEN)
     ) {
-      window.location = LOGIN;
+      window.location = "/" + LOGIN;
       handleError(error.response?.status, error.message);
 
       return Promise.reject(error);

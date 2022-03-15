@@ -6,13 +6,16 @@ import Breadcrumb from "../shared/Breadcrumb";
 import { AddCategoryModal } from "./AddCategoryModal";
 import { CategoryListItem } from "./CategoryListItem";
 import { EditCategoryModal } from "./EditCategoryModal";
-
+import { useDispatch, useSelector } from "react-redux";
+import { getAllCategories, selectAllCategories } from "redux/slices/category";
+import { useMergeAxios } from "hooks/useMergeAxios";
 export default function Categories() {
   const [createVisible, setcreateVisible] = useState(false);
   const [editVisible, setEditVisible] = useState(false);
 
   const [editingCategory, setEditingCategory] = useState();
-
+  const { data, loading } = useMergeAxios({ method: "GET" });
+  console.log(data);
   const onSearch = (e) => {
     const searchTerm = e.target.value;
     // TODO: api call and filter items
@@ -43,20 +46,10 @@ export default function Categories() {
       </div>
 
       <div className="bg-white p-9 pl-6 pt-4 mt-4 m-auto w-1/2">
-        <Tabs tabPosition="left">
-          {[...Array(5)]
-            .map((_) => ({
-              name: "Interial" + Math.round(Math.random() * 10),
-              childs: Array(Math.round(Math.random() * 10)).fill({
-                avatar: "https://joeschmoe.io/api/v1/random",
-                title: "Xuan Ha collection",
-                description:
-                  "Ant Design, a design language for background applications, is refined by Ant UED Team",
-                id: Math.random(),
-              }),
-            }))
-            .map(({ name, childs }, index) => (
-              <Tabs.TabPane tab={name} key={index}>
+        {data && data.length > 0 && (
+          <Tabs tabPosition="left">
+            {data.map(({ name, id, categories }) => (
+              <Tabs.TabPane tab={name} key={id}>
                 <List
                   itemLayout="horizontal"
                   footer={
@@ -64,8 +57,7 @@ export default function Categories() {
                       handlePress={(_) => setcreateVisible(true)}
                     />
                   }
-                  dataSource={[...childs]}
-                  // TODO: change key to id
+                  dataSource={[...categories]}
                   renderItem={(item, index) => (
                     <CategoryListItem
                       key={index}
@@ -73,10 +65,11 @@ export default function Categories() {
                       setEditItem={setEditingCategory}
                     />
                   )}
-                />
+                ></List>
               </Tabs.TabPane>
             ))}
-        </Tabs>
+          </Tabs>
+        )}
       </div>
 
       <AddCategoryModal
