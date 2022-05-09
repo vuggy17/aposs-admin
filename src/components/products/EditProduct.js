@@ -15,8 +15,7 @@ export default function EditProduct() {
   const dispatch = useDispatch();
   const categories = useSelector(selectAllCategories);
 
-  console.log(productName);
-  //TODO: ghep api
+  console.log(product);
   useEffect(() => {
     dispatch(getAllProducts());
     dispatch(getAllCategories());
@@ -46,10 +45,10 @@ export default function EditProduct() {
                   <Input disabled />
                 </Form.Item>
 
-                <Form.Item name={["user", "description"]} label="Description">
+                <Form.Item name="description" label="Description">
                   <Input.TextArea rows={6} />
                 </Form.Item>
-                <Form.Item name={["user", "Category"]} label="Category">
+                <Form.Item name="kind" label="Category">
                   <Select>
                     {categories.map(({ id, name }) => (
                       <Select.Option value={id} key={id}>
@@ -58,7 +57,7 @@ export default function EditProduct() {
                     ))}
                   </Select>
                 </Form.Item>
-                <Form.Item name="price" label="Unit in stock">
+                <Form.Item name="purchased" label="Unit in stock">
                   <InputNumber style={{ width: "100%" }} min={1} max={100000} />
                 </Form.Item>
                 <Form.Item name="price" label="Price">

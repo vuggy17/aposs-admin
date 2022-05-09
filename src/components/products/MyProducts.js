@@ -36,7 +36,12 @@ import {
 import { formatPrice } from "util/formatPrice";
 import useDebounce from "hooks/useDebouce";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProducts, selectAllProducts, set } from "redux/slices/product";
+import {
+  getAllProducts,
+  getProductWithName,
+  selectAllProducts,
+  set,
+} from "redux/slices/product";
 import { axios } from "lib/axios/Interceptor";
 import {
   categoryUpdated,
@@ -50,6 +55,8 @@ export default function Products() {
   const [editProduct, setEditProduct] = useState();
   let products = [];
   products = useSelector(selectAllProducts);
+
+  const searchProduct = useSelector((state) => state.products?.searchResult);
   const handleAddProduct = () => {
     setproductEditing(!productEditing);
   };
@@ -58,9 +65,12 @@ export default function Products() {
     return () => setEditProduct(product);
   };
 
-  const onSearch = (term) => {
-    console.log("searching for " + term);
+  const onSearch = (e) => {
+    const searchTerm = e.target.value;
+
+    console.log("searching for " + searchTerm);
     // dispatch(deleteWithId(37));
+    dispatch(getProductWithName(searchTerm));
   };
 
   useEffect(() => {
@@ -96,14 +106,27 @@ export default function Products() {
           <Col className="gutter-row" span={6}>
             <AddProduct handlePress={handleAddProduct} />
           </Col>
-          {products?.map(
-            ({
-              name,
-              description = "Some fancy description hehe huhu illo cupiditate autem doloremque voluptatibus officiis voluptatem ",
-              price,
-              id,
-              image,
-            }) => (
+          {!searchProduct ||
+            (searchProduct?.length == 0 &&
+              products?.map(({ name, description, price, id, image }) => (
+                <Col className="gutter-row" span={6} key={id}>
+                  <ProductCard
+                    title={name}
+                    description={description}
+                    onEditPressed={onEditProduct({
+                      title: name,
+                      description,
+                      price,
+                      id,
+                    })}
+                    price={price}
+                    image={image}
+                    stockStatus={Math.round(Math.random() * 100)}
+                  />
+                </Col>
+              )))}
+          {searchProduct?.length > 0 &&
+            searchProduct?.map(({ name, description, price, id, image }) => (
               <Col className="gutter-row" span={6} key={id}>
                 <ProductCard
                   title={name}
@@ -119,8 +142,7 @@ export default function Products() {
                   stockStatus={Math.round(Math.random() * 100)}
                 />
               </Col>
-            )
-          )}
+            ))}
         </Row>
       </div>
 

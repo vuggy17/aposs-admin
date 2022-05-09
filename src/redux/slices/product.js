@@ -20,11 +20,41 @@ export const getAllProducts = createAsyncThunk(
     return response.data;
   }
 );
+
+export const getProductWithName = createAsyncThunk(
+  "products/search",
+  async (searchTerm, { getState, dispatch }) => {
+    const {
+      products: { entities },
+    } = getState();
+
+    let pr;
+
+    if (searchTerm == " " || !searchTerm) {
+      return new Promise((resolve, _) => {
+        setTimeout(() => {
+          resolve({ data: [] });
+        }, 100);
+      });
+    }
+    const products = Object.values(entities).filter((p) =>
+      p.name.includes(searchTerm)
+    );
+    // console.log(products, searchTerm);
+    pr = new Promise((resolve, _) => {
+      setTimeout(() => {
+        resolve({ data: products });
+      }, 100);
+    });
+    return pr;
+  }
+);
+
 export const productSlice = createSlice({
   name: "products",
   initialState,
   reducers: {
-    set: (state) => {
+    searchProduct: (state, action) => {
       // Redux Toolkit allows us to write "mutating" logic in reducers. It
       // doesn't actually mutate the state because it uses the Immer library,
       // which detects changes to a "draft state" and produces a brand new
@@ -41,8 +71,11 @@ export const productSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(getAllProducts.fulfilled, (state, action) => {
-      //   console.log(action.payload);
       productAdapter.upsertMany(state, action.payload.content);
+    });
+    builder.addCase(getProductWithName.fulfilled, (state, action) => {
+      state.searchResult = action.payload.data;
+      console.log("payload", action.payload);
     });
   },
 });
