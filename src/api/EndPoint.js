@@ -5,3 +5,4 @@ export const ENP_KIND = "kind";
 export const ENP_INDUSTRY = "industry/detail_category";
 export const ENP_PRODUCT = "products";
 export const ENP_TOKEN = "auth/seller-access-token";
+export const ENP_ORDER = "order/all";

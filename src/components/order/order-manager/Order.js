@@ -8,19 +8,17 @@ import { Button, Input, List, Badge } from "antd";
 
 import Breadcrumb from "../../shared/Breadcrumb";
 import {
-  CaretDownOutlined,
-  CaretUpOutlined,
   CaretRightOutlined,
 } from "@ant-design/icons";
 
-import { dataProducts } from "./dataProduct";
-import { dataOrder } from "./dataOrder";
 
 import { ORDER_MANAGEMENT } from "routes/route.config";
 
 import "./Order.css";
 import Navigation from "components/shared/Navigation";
 import useDebounce from "hooks/useDebouce";
+import { ENP_ORDER } from "api/EndPoint";
+import { axios } from "lib/axios/Interceptor";
 
 export default function Order() {
   const pages = [
@@ -28,33 +26,13 @@ export default function Order() {
     { url: ORDER_MANAGEMENT, title: "Order" },
   ];
 
-  const [products, setProducts] = useState(dataProducts);
-  const [orderList, setOrderList] = useState(dataOrder);
+  const [orderList, setOrderList] = useState();
 
-  useEffect(() => {
-    // TODO: api call and filter items
-    setProducts(dataProducts);
+  useEffect(async () => {
+    const response = await axios.get(ENP_ORDER);
+
+    setOrderList(response.data);
   });
-
-  //Calculate total
-  useEffect(() => {
-    // Deep copy
-    const data = JSON.parse(JSON.stringify(orderList));
-
-    for (let i = 0; i < data.length; i++) {
-      let total = 0;
-      for (let j = 0; j < products.length; j++) {
-        if (data[i].key == products[j].id) {
-          //if data.total is exists
-          if (data[i].total) {
-            total = total + parseInt(products[j].price);
-          }
-        }
-      }
-      data[i].total = total + " $";
-    }
-    setOrderList(data);
-  }, [products]);
 
   const onSearch = (e) => {
     const searchTerm = e.target.value;
@@ -70,41 +48,26 @@ export default function Order() {
     },
     {
       title: "STATUS",
-      dataIndex: "statusOrder",
-      key: "statusOrder",
+      dataIndex: "orderStatus",
+      key: "orderStatus",
       render: (statusOrder) => {
         if (statusOrder == "Moving")
           return <Badge color="green" text={statusOrder} />;
         else if (statusOrder == "Pending")
           return <Badge color="yellow" text={statusOrder} />;
-        if (statusOrder == "Cancelled")
+        if (statusOrder == "Cancel")
           return <Badge color="red" text={statusOrder} />;
       },
     },
     {
-      title: "OPERATORS",
-      dataIndex: "name",
-      key: "name",
+      title: "EMAIL",
+      dataIndex: "customerEmail",
+      key: "customerEmail",
     },
     {
-      title: "LOCATION",
+      title: "ADDRESS",
       dataIndex: "address",
       key: "address",
-    },
-    {
-      title: "DISTANCE",
-      dataIndex: "distance",
-      key: "distance",
-    },
-    {
-      title: "START DATE",
-      dataIndex: "orderTime",
-      key: "orderTime",
-    },
-    {
-      title: "EST DELIVERY DUE",
-      dataIndex: "estDelivery",
-      key: "estDelivery",
     },
     {
       title: "",
@@ -123,7 +86,7 @@ export default function Order() {
       render: (text, record) => {
         // Substring for remove #(anchor) in id
         return (
-          <Link to={`/order/${record.id.substring(1)}`}>
+          <Link to={`/order/${record.id}`} state={record}>
             <CaretRightOutlined style={{ color: "black" }} />
           </Link>
         );
