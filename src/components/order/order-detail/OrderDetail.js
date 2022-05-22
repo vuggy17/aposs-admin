@@ -27,17 +27,20 @@ export default function OrderDetail(props) {
   function createDataByStatus() {
     switch (customerData.orderStatus) {
       case "Cancel":
-        progressCurrentStep = 2;
+        progressCurrentStep = 1;
         return <p><Badge color="red" text="CANCEL" /></p>
       case "Pending":
-        progressCurrentStep = 1;
+        progressCurrentStep = 0;
         return <p><Badge color="yellow" text="PENDING" /></p>
-      case "Accept":
+      case "Confirmed":
+        progressCurrentStep = 1;
+        return <p><Badge color="green" text="CONFIRMED" /></p>
+      case "Delivering":
         progressCurrentStep = 2;
-        return <p><Badge color="green" text="ACCEPT" /></p>
-      case "Finish":
+        return <p><Badge color="yellow" text="DELIVERING" /></p>
+      case "Success":
         progressCurrentStep = 3;
-        return <p><Badge color="green" text="FINISH" /></p>
+        return <p><Badge color="green" text="SUCCESS" /></p>
     }
   }
 
@@ -102,11 +105,10 @@ export default function OrderDetail(props) {
         </div>
         <div className="pt-9">
           <Steps progressDot current={progressCurrentStep}>
-            <Steps.Step
-              title="Create order" />
             <Steps.Step title="Pending" />
-            <Steps.Step title={progressCurrentStep == 3 ? customerData.orderStatus : "Accept"} />
-            <Steps.Step title="Finish" />
+            <Steps.Step title={progressCurrentStep == 3 ? customerData.orderStatus : "Confirmed"} />
+            <Steps.Step title="Delivering" />
+            <Steps.Step title="Success" />
           </Steps>
         </div>
       </div>

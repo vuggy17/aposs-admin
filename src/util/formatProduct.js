@@ -1,5 +1,5 @@
-export default function FormatProduct({ key, imageUrl, name, property, quantity, price }) {
-  const [size, color] = property.split(',');
+export default function FormatProduct({ key, imageUrl, name, property, setId, quantity, price }) {
+  const [size, color,] = property.split(',');
   console.log(size, color);
   return {
     key,
@@ -8,6 +8,7 @@ export default function FormatProduct({ key, imageUrl, name, property, quantity,
       name,
       color,
       size,
+      setId,
     },
     quantity,
     price,

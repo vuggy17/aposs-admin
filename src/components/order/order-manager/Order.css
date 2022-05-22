@@ -2,7 +2,7 @@
     margin: 0px;
 }
 
-.tb__order .ant-table-expanded-row .ant-table-cell{
+.tb__order .ant-table-expanded-row .ant-table-cell {
     background: #fff;
 }
 
@@ -11,4 +11,6 @@
     font-size: 2.25rem;
 }
 
-
+.disable-link {
+    pointer-events: none;
+}
