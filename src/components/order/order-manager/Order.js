@@ -130,30 +130,27 @@ export default function Order() {
       title: "",
       key: "action",
       render: (text, record) => {
-        const idStatus = generateStatusID(record.orderStatus)
-        if (record.orderStatus != "Cancel")
-          return (
-            <Space size="middle">
-              <a className={idStatus == ORDER_STATUS_PENDING ? "" : "disable-link"} onClick={() => onClickConfirmed(record.id)}>Confirmed</a>
-              <a className={idStatus == ORDER_STATUS_CONFIRMED ? "" : "disable-link"} onClick={() => onClickDelivering(record.id)}>Delivering</a>
-              <a className={idStatus == ORDER_STATUS_DELIVERING ? "" : "disable-link"} onClick={() => onClickSuccess(record.id)}>Success</a>
-              <Popover
-                title="Cancel reason"
-                content={
-                  <div>
-                    <Input.Group compact>
-                      <Input onChange={(e) => setCancelReason(e.target.value)} />
-                    </Input.Group>
-                    <div className="mt-2">
-                      <Button onClick={() => onClickCancel(record.id, cancelReason)}>OK</Button>
-                    </div>
+        return (
+          <Space size="middle">
+            <a onClick={() => onClickConfirmed(record.id)}>Confirmed</a>
+            <a onClick={() => onClickDelivering(record.id)}>Delivering</a>
+            <a onClick={() => onClickSuccess(record.id)}>Success</a>
+            <Popover
+              title="Cancel reason"
+              content={
+                <div>
+                  <Input.Group compact>
+                    <Input onChange={(e) => setCancelReason(e.target.value)} />
+                  </Input.Group>
+                  <div className="mt-2">
+                    <Button onClick={() => onClickCancel(record.id, cancelReason)}>OK</Button>
                   </div>
-                }
-                trigger="click"
-              ><a>Cancel</a></Popover>
-            </Space>)
-        else return;
-      },
+                </div>
+              }
+              trigger="click"
+            ><a>Cancel</a></Popover>
+          </Space>)
+      }
     },
     // Open order detail in new tab
     {
