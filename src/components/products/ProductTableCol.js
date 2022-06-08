@@ -1,4 +1,6 @@
 import React, { useContext } from 'react'
+import { Link } from 'react-router-dom';
+import { PRODUCT_MANAGEMENT } from 'routes/route.config';
 
 import { StorageContext } from './ProductTable';
 
@@ -9,22 +11,27 @@ export const columnsProduct = [
     key: 'info',
     render: product => {
       return (<div className="flex info__product">
-        <img src={product.img} className="w-20 h-20" />
+        <img src={product.imageUrl} className="w-20 h-20" />
         <div>
-          <p className='font-semibold'>{product.name}</p>
-          <p>Color: {product.color}</p>
-          <p>Size: {product.size}</p>
+          <p className='font-semibold'>
+            <Link
+              to={`/${PRODUCT_MANAGEMENT}/${product?.name}`}
+              state={{ id: product?.setId }}
+            >{product.name}</Link>
+          </p>
+          <p>{product.color}</p>
+          <p>{product.size}</p>
         </div>
       </div>)
     }
   },
   {
-    title: 'Amount',
-    dataIndex: 'amount',
-    key: 'amount',
-    render: amount => {
+    title: 'Quantity',
+    dataIndex: 'quantity',
+    key: 'quantity',
+    render: quantity => {
       return <>
-        <span>{amount}</span><span style={{ color: '#bfbfbf' }}>/100</span>
+        <span>{quantity}</span><span style={{ color: '#bfbfbf' }}>/100</span>
       </>
 
     }

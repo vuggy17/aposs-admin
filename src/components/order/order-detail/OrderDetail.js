@@ -2,13 +2,18 @@ import React from "react";
 
 import Breadcrumb from "components/shared/Breadcrumb";
 import { ORDER_DETAIL, ORDER_MANAGEMENT } from "routes/route.config";
-import { useParams } from "react-router-dom";
-import { Col, Row, Steps, Table } from "antd";
+import { useLocation, useParams } from "react-router-dom";
+import { Badge, Col, Row, Steps, Table } from "antd";
 import ProductTable from "components/products/ProductTable";
-import { dataProducts } from "../order-manager/dataProduct";
-import FormatProduct from "components/products/FormatProduct";
+import FormatProduct from "util/formatProduct";
 
-export default function OrderDetail() {
+export default function OrderDetail(props) {
+
+  const location = useLocation();
+
+  const customerData = location.state;
+  const productsData = location.state.orderItemDTOList;
+
   let { orderId } = useParams();
 
   const pages = [
@@ -16,6 +21,28 @@ export default function OrderDetail() {
     { url: ORDER_MANAGEMENT, title: "Order" },
     { url: ORDER_DETAIL, title: `#${orderId}` },
   ];
+
+  let progressCurrentStep = 0;
+
+  function createDataByStatus() {
+    switch (customerData.orderStatus) {
+      case "Cancel":
+        progressCurrentStep = 1;
+        return <p><Badge color="red" text="CANCEL" /></p>
+      case "Pending":
+        progressCurrentStep = 0;
+        return <p><Badge color="yellow" text="PENDING" /></p>
+      case "Confirmed":
+        progressCurrentStep = 1;
+        return <p><Badge color="green" text="CONFIRMED" /></p>
+      case "Delivering":
+        progressCurrentStep = 2;
+        return <p><Badge color="yellow" text="DELIVERING" /></p>
+      case "Success":
+        progressCurrentStep = 3;
+        return <p><Badge color="green" text="SUCCESS" /></p>
+    }
+  }
 
   return (
     <>
@@ -32,27 +59,23 @@ export default function OrderDetail() {
         <Row>
           <Col span={14}>
             <Row>
-              <Col span={12}>
-                <p>Customer: Phạm Minh Tân</p>
-              </Col>
-              <Col span={12}>
-                <p>Ordering Products: Women's hoodie</p>
+              <Col>
+                <p>Customer: {customerData.customerEmail}</p>
               </Col>
             </Row>
             <Row>
-              <Col span={12}>
-                <p>Creation time: 07/07/2001</p>
-              </Col>
-              <Col span={12}>
-                <p>Associated documents: 12421</p>
+              <Col>
+                <p>Order time: {customerData.orderTime}</p>
               </Col>
             </Row>
             <Row>
-              <Col span={12}>
-                <p>Effective date: 2017-07-07 ~ 2017-08-08</p>
+              <Col>
+                <p>Cancel reason: {customerData.cancelReason}</p>
               </Col>
-              <Col span={12}>
-                <p>Remark: Please confirm within two working days</p>
+            </Row>
+            <Row>
+              <Col>
+                <p>Address: {customerData.address}</p>
               </Col>
             </Row>
           </Col>
@@ -67,10 +90,10 @@ export default function OrderDetail() {
             </Row>
             <Row className="text-2xl">
               <Col span={12}>
-                <p>Pending</p>
+                {createDataByStatus()}
               </Col>
               <Col span={12}>
-                <p>500$</p>
+                <p>{customerData.totalPrice}</p>
               </Col>
             </Row>
           </Col>
@@ -81,51 +104,20 @@ export default function OrderDetail() {
           <h1>Process progress</h1>
         </div>
         <div className="pt-9">
-          <Steps progressDot current={0}>
-            <Steps.Step
-              title="Create order"
-              description="Phạm Minh Tân 07/07/2001"
-            />
-            <Steps.Step title="Waiting for the goods" />
-            <Steps.Step title="Delivery" />
-            <Steps.Step title="Finish" />
+          <Steps progressDot current={progressCurrentStep}>
+            <Steps.Step title="Pending" />
+            <Steps.Step title={progressCurrentStep == 3 ? customerData.orderStatus : "Confirmed"} />
+            <Steps.Step title="Delivering" />
+            <Steps.Step title="Success" />
           </Steps>
         </div>
-      </div>
-      <div className="bg-white m-6 p-9 pt-6 pl-6">
-        <div className="border-0 border-b border-solid border-slate-200">
-          <h1>User info</h1>
-        </div>
-        <Row className="mt-6">
-          <Col span={24}>
-            <Row>
-              <Col span={8}>
-                <p>Name: Phạm Minh Tân</p>
-              </Col>
-              <Col span={8}>
-                <p>Member card number: 0123456789</p>
-              </Col>
-              <Col span={8}>
-                <p>ID card: 0123456789</p>
-              </Col>
-            </Row>
-            <Row>
-              <Col span={8}>
-                <p>Contact phone: 0123456789</p>
-              </Col>
-              <Col span={12}>
-                <p>Address: 123 duong 456, p789, quan Thu Duc</p>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
       </div>
       <div className="bg-white m-6 p-9 pt-6 pl-6">
         <div className="border-0 border-b border-solid border-slate-200">
           <h1>Products</h1>
         </div>
         <div className="pt-6">
-          <ProductTable source={dataProducts.map(FormatProduct)} />
+          <ProductTable source={productsData.map(FormatProduct)} />
         </div>
       </div>
     </>
