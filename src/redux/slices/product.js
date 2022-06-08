@@ -16,7 +16,11 @@ const initialState = productAdapter.getInitialState();
 export const getAllProducts = createAsyncThunk(
   "products/getProducts",
   async () => {
-    const response = await axios.get(ENP_PRODUCT);
+    const response = await axios.get(ENP_PRODUCT, {
+      params: {
+        pageSize: 100,
+      },
+    });
     return response.data;
   }
 );
@@ -24,29 +28,13 @@ export const getAllProducts = createAsyncThunk(
 export const getProductWithName = createAsyncThunk(
   "products/search",
   async (searchTerm, { getState, dispatch }) => {
-    const {
-      products: { entities },
-    } = getState();
-
-    let pr;
-
-    if (searchTerm == " " || !searchTerm) {
-      return new Promise((resolve, _) => {
-        setTimeout(() => {
-          resolve({ data: [] });
-        }, 100);
-      });
-    }
-    const products = Object.values(entities).filter((p) =>
-      p.name.includes(searchTerm)
-    );
-    // console.log(products, searchTerm);
-    pr = new Promise((resolve, _) => {
-      setTimeout(() => {
-        resolve({ data: products });
-      }, 100);
+    const url = ENP_PRODUCT + "/search?keyword=" + searchTerm;
+    const response = await axios.get(url, {
+      params: {
+        pageSize: 100,
+      },
     });
-    return pr;
+    return response.data;
   }
 );
 
@@ -54,13 +42,6 @@ export const productSlice = createSlice({
   name: "products",
   initialState,
   reducers: {
-    searchProduct: (state, action) => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
-      //   state.product += 1;
-    },
     deleteWithId: (state, action) => {
       const productId = action.payload;
       //   state.products = state.products.filter((i) => i.id !== productsId);
@@ -74,8 +55,7 @@ export const productSlice = createSlice({
       productAdapter.upsertMany(state, action.payload.content);
     });
     builder.addCase(getProductWithName.fulfilled, (state, action) => {
-      state.searchResult = action.payload.data;
-      console.log("payload", action.payload);
+      productAdapter.setAll(state, action.payload.content);
     });
   },
 });

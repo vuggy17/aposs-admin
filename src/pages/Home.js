@@ -22,12 +22,12 @@ export class Home extends Component {
           <Navigation />
         </Sider>
         <Layout className="bg-gray-400" style={{ marginLeft: 200 }}>
-          <Header className="bg-red-700" style={{ padding: 0 }} />
+          {/* <Header className="bg-red-700" style={{ padding: 0 }} /> */}
           <Content style={{ margin: "24px 16px 0", overflow: "initial" }}>
             <Outlet />
           </Content>
           <Footer style={{ textAlign: "center" }}>
-            Ant Design ©2018 Created by Ant UED
+            Aposs administator webstie ©2022 Created by APOSS TEAM
           </Footer>
         </Layout>
       </Layout>

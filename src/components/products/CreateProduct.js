@@ -20,7 +20,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getAllCategories, selectAllCategories } from "redux/slices/category";
-import { getBase64, validate } from "util/ui-helper";
+import { getBase64, validate } from "../../util/ui-helper";
 import { ProductPictures } from "./ProductPictures";
 
 export default function CreateProduct() {

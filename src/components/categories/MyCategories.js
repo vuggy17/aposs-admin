@@ -1,5 +1,5 @@
 import { PlusOutlined } from "@ant-design/icons";
-import { Button, Input, List, Tabs } from "antd";
+import { Button, Input, List, Tabs, Tooltip } from "antd";
 import React, { useEffect, useState } from "react";
 import useDebounce from "hooks/useDebouce";
 import Breadcrumb from "../shared/Breadcrumb";
@@ -34,15 +34,6 @@ export default function Categories() {
         <div className="pt-4">
           <h2>Categories</h2>
         </div>
-      </div>
-
-      <div className=" mt-6 m-auto w-1/2">
-        <Input.Search
-          onChange={useDebounce(onSearch)}
-          placeholder="Category name"
-          enterButton="Search"
-          size="large"
-        ></Input.Search>
       </div>
 
       <div className="bg-white p-9 pl-6 pt-4 mt-4 m-auto w-1/2">
@@ -90,9 +81,11 @@ export default function Categories() {
 
 function CategoryListFooter({ handlePress }) {
   return (
-    <Button type="dashed" className="w-full" onClick={handlePress}>
-      <PlusOutlined />
-      add to list
-    </Button>
+    <Tooltip placement="topLeft" title="Can't add category at this time">
+      <Button type="dashed" disabled className="w-full" onClick={handlePress}>
+        <PlusOutlined />
+        add to list
+      </Button>
+    </Tooltip>
   );
 }

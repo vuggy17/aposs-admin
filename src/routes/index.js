@@ -36,6 +36,7 @@ import Categories from "components/categories/MyCategories";
 import Category from "components/categories/Category";
 import Industries from "components/industries/MyIndustries";
 import Order from "components/order/order-manager/Order";
+import Workspace from "components/dashboard/Workspace";
 
 // import Workspace from "components/dashboard/Workspace";
 export default function AppRoute() {
