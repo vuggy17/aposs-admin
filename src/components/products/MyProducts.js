@@ -16,8 +16,10 @@ import {
   Menu,
   Popconfirm,
   Progress,
+  Rate,
   Row,
   Skeleton,
+  Typography,
   Tooltip,
 } from "antd";
 import Meta from "antd/lib/card/Meta";
@@ -36,31 +38,45 @@ import {
 import { formatPrice } from "util/formatPrice";
 import useDebounce from "hooks/useDebouce";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProducts, selectAllProducts, set } from "redux/slices/product";
+import product, {
+  getAllProducts,
+  getProductWithName,
+  selectAllProducts,
+  set,
+} from "redux/slices/product";
 import { axios } from "lib/axios/Interceptor";
 import {
   categoryUpdated,
   deleteProductOfCategory,
 } from "redux/slices/category";
 
+const { Paragraph, Text } = Typography;
+
 export default function Products() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [productEditing, setproductEditing] = useState(false);
   const [editProduct, setEditProduct] = useState();
   let products = [];
   products = useSelector(selectAllProducts);
+
   const handleAddProduct = () => {
     setproductEditing(!productEditing);
   };
 
   const onEditProduct = (product) => {
-    return () => setEditProduct(product);
+    navigate(`/${PRODUCT_MANAGEMENT}/${editProduct?.title}`, {
+      state: { id: product.id },
+    });
   };
 
-  const onSearch = (term) => {
-    console.log("searching for " + term);
+  const onSearch = (e) => {
+    const searchTerm = e.target.value;
+
+    console.log("searching for " + searchTerm);
     // dispatch(deleteWithId(37));
+    dispatch(getProductWithName(searchTerm));
   };
 
   useEffect(() => {
@@ -93,89 +109,33 @@ export default function Products() {
 
       <div className="mt-2">
         <Row gutter={[8, 8]}>
-          <Col className="gutter-row" span={6}>
+          <Col className="gutter-row" xl={6} lg={8} md={12}>
             <AddProduct handlePress={handleAddProduct} />
           </Col>
-          {products?.map(
-            ({
-              name,
-              description = "Some fancy description hehe huhu illo cupiditate autem doloremque voluptatibus officiis voluptatem ",
-              price,
-              id,
-              image,
-            }) => (
-              <Col className="gutter-row" span={6} key={id}>
+          {products?.length > 0 ? (
+            product.map(({ name, purchased, price, id, image, rating }) => (
+              <Col className="gutter-row" xl={6} lg={8} md={12} key={id}>
                 <ProductCard
                   title={name}
-                  description={description}
+                  description={purchased}
                   onEditPressed={onEditProduct({
                     title: name,
-                    description,
+                    purchased,
                     price,
                     id,
                   })}
                   price={price}
+                  rating={rating}
                   image={image}
-                  stockStatus={Math.round(Math.random() * 100)}
+                  purchased={purchased}
                 />
               </Col>
-            )
+            ))
+          ) : (
+            <div className="h-60 ">No product to display!</div>
           )}
         </Row>
       </div>
-
-      <Drawer
-        title="Quick view"
-        placement="right"
-        closable={false}
-        onClose={() => setproductEditing(false)}
-        visible={productEditing}
-        // visible={true}
-        getContainer={false}
-        style={{ position: "absolute" }}
-        width={600}
-      >
-        <p className="text-xl">
-          {editProduct?.title}
-          <Tooltip title="Edit product">
-            <Link
-              to={`/${PRODUCT_MANAGEMENT}/${editProduct?.title}`}
-              state={{ id: editProduct?.id }}
-            >
-              <EditOutlined key="edit" />
-            </Link>
-          </Tooltip>
-        </p>
-        <Descriptions
-          layout="horizontal"
-          column={1}
-          contentStyle={{ fontSize: "1rem", lineHeight: "1.5rem" }}
-          labelStyle={{ fontSize: "1rem", lineHeight: "1.5rem" }}
-        >
-          <Descriptions.Item label="Description">
-            {editProduct?.description}
-          </Descriptions.Item>
-          <Descriptions.Item label="Price">
-            {formatPrice(editProduct?.price)}
-          </Descriptions.Item>
-          <Descriptions.Item label="Status">
-            <ProductStockStatus inStock={true} />
-          </Descriptions.Item>
-          <Descriptions.Item label="Sales/Remain">12/32</Descriptions.Item>
-        </Descriptions>
-
-        <p className="text-base mt-2">Images: </p>
-        <div className="grid grid-cols-4 gap-2">
-          <Image src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" />
-          <Image src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" />
-          <Image src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" />
-          <Image src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" />
-          <Image src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" />
-          <Image src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" />
-          <Image src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" />
-          <Image src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png" />
-        </div>
-      </Drawer>
     </>
   );
 }
@@ -187,6 +147,9 @@ export function ProductCard({
   stockStatus,
   image,
   id,
+  purchased,
+  price,
+  rating,
   handleDelete,
 }) {
   const menu = (
@@ -205,6 +168,7 @@ export function ProductCard({
       </Menu.Item>
     </Menu>
   );
+
   return (
     <Card
       hoverable={false}
@@ -215,16 +179,24 @@ export function ProductCard({
         </Dropdown>,
       ]}
     >
-      <Skeleton loading={loading} avatar active>
-        <Meta
-          style={{ minHeight: 120 }}
-          avatar={<Avatar src={image} alt="error" />}
-          title={title}
-          description={description}
+      <div className="text-center">
+        <img
+          src={image}
+          className="w-full mb-4 h-60 object-cover"
+          alt="error"
         />
-        <p>Products remain</p>
-        <Progress percent={stockStatus} />
-      </Skeleton>
+
+        <Paragraph
+          className="font-semibold text-xl"
+          ellipsis={{ rows: 1, expandable: true, symbol: "more" }}
+        >
+          {title}
+        </Paragraph>
+        <p className="font-semibold text-blue-600 text-xl tracking-tight">
+          ${price}
+        </p>
+        <p className="mb-0">SOLD: {purchased} item(s)</p>
+      </div>
     </Card>
   );
 }

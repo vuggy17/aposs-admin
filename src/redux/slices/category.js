@@ -24,22 +24,9 @@ export const categorySlice = createSlice({
       const categoryId = action.payload;
       //   state.products = state.products.filter((i) => i.id !== productsId);
       //   return [];
-      console.log("tigger me", categoryId);
       categoryAdapter.removeOne(state, categoryId);
     },
-    // deleteProductOfCategory: (state, action) => {
-    //   const { categoryId, productId } = action.payload;
-    //   // const category = state.entities.filter((c) => c.id === categoryId);
-    //   // const category = categoryAdapter
-    //   //   .getSelectors()
-    //   //   .selectById(state, categoryId);
-    //   // console.log("mc", category);
-    //   // category.products = category.products.filter((p) => p.id !== productId);
 
-    //   // categoryAdapter.upsertOne(state, category);
-
-    //   console.log(JSON.parse(state.entities));
-    // },
     categoryUpdated: categoryAdapter.updateOne,
   },
 

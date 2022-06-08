@@ -7,13 +7,17 @@ import Breadcrumb from "../shared/Breadcrumb";
 import { CategoryListItem } from "components/categories/CategoryListItem";
 import { AddCategoryModal } from "components/categories/AddCategoryModal";
 import { EditCategoryModal } from "components/categories/EditCategoryModal";
+import IndustryListItem from "./Industry.ListItem";
+import { useAxios } from "hooks/useAxios";
+import { axios } from "lib/axios/Interceptor";
+import { ENP_INDUSTRY } from "api/EndPoint";
 
 export default function Industries() {
   const [createVisible, setcreateVisible] = useState(false);
   const [editVisible, setEditVisible] = useState(false);
 
   const [editingCategory, setEditingCategory] = useState();
-
+  const [industries, setIndustries] = useState([]);
   const onSearch = (e) => {
     const searchTerm = e.target.value;
     // TODO: api call and filter items
@@ -23,6 +27,7 @@ export default function Industries() {
     if (editingCategory) {
       setEditVisible(true);
     }
+    axios.get(ENP_INDUSTRY).then((res) => setIndustries(res.data));
   }, [editingCategory]);
 
   return (
@@ -46,21 +51,20 @@ export default function Industries() {
       <div className="bg-white p-9 pl-6 pt-4 mt-4 m-auto w-1/2">
         <List
           itemLayout="horizontal"
-          footer={
-            <CategoryListFooter handlePress={(_) => setcreateVisible(true)} />
+          footer={<ListFooter handlePress={(_) => setcreateVisible(true)} />}
+          dataSource={
+            // ...Array(6).fill({
+            //   avatar: "https://joeschmoe.io/api/v1/random",
+            //   name: "Interial" + Math.round(Math.random() * 29),
+            //   description:
+            //     "Ant Design, a design language for background applications, is refined by Ant UED Team",
+            //   id: Math.random(),
+            // }),
+            industries
           }
-          dataSource={[
-            ...Array(6).fill({
-              avatar: "https://joeschmoe.io/api/v1/random",
-              title: "Interial" + Math.round(Math.random() * 29),
-              description:
-                "Ant Design, a design language for background applications, is refined by Ant UED Team",
-              id: Math.random(),
-            }),
-          ]}
           // TODO: change key to id
           renderItem={(item, index) => (
-            <CategoryListItem
+            <IndustryListItem
               key={index}
               item={item}
               setEditItem={setEditingCategory}
@@ -85,7 +89,7 @@ export default function Industries() {
   );
 }
 
-function CategoryListFooter({ handlePress }) {
+function ListFooter({ handlePress }) {
   return (
     <Button type="dashed" className="w-full" onClick={handlePress}>
       <PlusOutlined />
