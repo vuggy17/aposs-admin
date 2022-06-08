@@ -25,7 +25,6 @@ export default function Category() {
 
   const deleteProduct = (prodId) => {
     axios.delete(ENP_PRODUCT + "/" + prodId).then((res) => {
-      console.log(res);
       notification.success({
         message: "Product deleted",
       });
@@ -39,6 +38,7 @@ export default function Category() {
       );
     });
   };
+  console.log(products);
   useEffect(() => {
     dispatch(getAllCategories());
   }, []);

@@ -1,12 +1,15 @@
-import { Avatar, Button, List, Popover } from "antd";
+import { Avatar, Button, List, Popover, Typography } from "antd";
+
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
+const { Paragraph } = Typography;
 export default function IndustryListItem({ item, setEditItem }) {
   const [confirmVisible, setconfirmVisible] = useState(false);
 
   const deleteCategory = () => {
     alert("comming soon");
+    setconfirmVisible(false);
   };
   return (
     <List.Item
@@ -47,7 +50,14 @@ export default function IndustryListItem({ item, setEditItem }) {
       <List.Item.Meta
         avatar={<Avatar src={item.images[0]} />}
         title={item.name}
-        description="Some fancy description necessitatibus recusandae dignissimos ut itaque explicabo soluta."
+        description={
+          <Paragraph ellipsis={{ rows: 1, expandable: true, symbol: "more" }}>
+            Đá phong thuỷ có thể hiểu là những loại đá trải qua quá trình tôi
+            luyện hàng ngàn năm dưới sự vận động của địa chất, do đó, chúng chứa
+            đựng những tinh hoa của đất trời, có khả năng mang đến nhiều năng
+            lượng tốt, thay đổi vận mệnh của con người.
+          </Paragraph>
+        }
       />
     </List.Item>
   );
