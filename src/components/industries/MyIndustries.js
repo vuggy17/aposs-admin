@@ -11,6 +11,8 @@ import IndustryListItem from "./Industry.ListItem";
 import { useAxios } from "hooks/useAxios";
 import { axios } from "lib/axios/Interceptor";
 import { ENP_INDUSTRY } from "api/EndPoint";
+import { AddIndustry } from "./AddIndustry";
+import { EditIndustry } from "./EditIndustry";
 
 export default function Industries() {
   const [createVisible, setcreateVisible] = useState(false);
@@ -52,17 +54,8 @@ export default function Industries() {
         <List
           itemLayout="horizontal"
           footer={<ListFooter handlePress={(_) => setcreateVisible(true)} />}
-          dataSource={
-            // ...Array(6).fill({
-            //   avatar: "https://joeschmoe.io/api/v1/random",
-            //   name: "Interial" + Math.round(Math.random() * 29),
-            //   description:
-            //     "Ant Design, a design language for background applications, is refined by Ant UED Team",
-            //   id: Math.random(),
-            // }),
-            industries
-          }
-          // TODO: change key to id
+          dataSource={industries}
+          // TODO: cs hange key to id
           renderItem={(item, index) => (
             <IndustryListItem
               key={index}
@@ -73,13 +66,13 @@ export default function Industries() {
         />
       </div>
 
-      <AddCategoryModal
+      <AddIndustry
         key={Math.random()} // random key to  refresh modal
         visible={createVisible}
         handleClose={() => setcreateVisible(false)}
       />
 
-      <EditCategoryModal
+      <EditIndustry
         key={Math.random()} // random key to  refresh modal
         visible={editVisible}
         handleClose={() => setEditVisible(false)}

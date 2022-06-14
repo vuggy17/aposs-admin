@@ -1,4 +1,5 @@
 import {
+  DeleteOutlined,
   EditOutlined,
   EllipsisOutlined,
   PlusOutlined,
@@ -39,6 +40,7 @@ import { formatPrice } from "util/formatPrice";
 import useDebounce from "hooks/useDebouce";
 import { useDispatch, useSelector } from "react-redux";
 import product, {
+  deleteProduct,
   getAllProducts,
   getProductWithName,
   selectAllProducts,
@@ -66,7 +68,7 @@ export default function Products() {
   };
 
   const onEditProduct = (product) => {
-    navigate(`/${PRODUCT_MANAGEMENT}/${editProduct?.title}`, {
+    navigate(`/${PRODUCT_MANAGEMENT}/${product?.title}`, {
       state: { id: product.id },
     });
   };
@@ -113,17 +115,20 @@ export default function Products() {
             <AddProduct handlePress={handleAddProduct} />
           </Col>
           {products?.length > 0 ? (
-            product.map(({ name, purchased, price, id, image, rating }) => (
+            products.map(({ name, purchased, price, id, image, rating }) => (
               <Col className="gutter-row" xl={6} lg={8} md={12} key={id}>
                 <ProductCard
+                  id={id}
                   title={name}
                   description={purchased}
-                  onEditPressed={onEditProduct({
-                    title: name,
-                    purchased,
-                    price,
-                    id,
-                  })}
+                  onEditPressed={() =>
+                    onEditProduct({
+                      title: name,
+                      purchased,
+                      price,
+                      id,
+                    })
+                  }
                   price={price}
                   rating={rating}
                   image={image}
@@ -150,33 +155,27 @@ export function ProductCard({
   purchased,
   price,
   rating,
-  handleDelete,
 }) {
-  const menu = (
-    <Menu>
-      <Menu.Item key={id}>
-        <Popconfirm
-          placement="topLeft"
-          title="Pernamently delete this product"
-          onConfirm={() => handleDelete(id)}
-          okText="OK"
-          okButtonProps={{ danger: true }}
-          cancelText="Cancel"
-        >
-          Delete
-        </Popconfirm>
-      </Menu.Item>
-    </Menu>
-  );
-
+  const dispatch = useDispatch();
+  const onDeleteProduct = () => {
+    console.log("asdf");
+    dispatch(deleteProduct({ id, title }));
+  };
   return (
     <Card
       hoverable={false}
       actions={[
         <EditOutlined key="edit" onClick={onEditPressed} />,
-        <Dropdown overlay={menu} placement="bottom">
-          <EllipsisOutlined key="ellipsis" />
-        </Dropdown>,
+        <Popconfirm
+          placement="topLeft"
+          title="Pernamently delete this product"
+          onConfirm={onDeleteProduct}
+          okText="OK"
+          okButtonProps={{ danger: true }}
+          cancelText="Cancel"
+        >
+          <DeleteOutlined key="delete" />,
+        </Popconfirm>,
       ]}
     >
       <div className="text-center">

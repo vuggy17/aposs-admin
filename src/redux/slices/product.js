@@ -38,16 +38,27 @@ export const getProductWithName = createAsyncThunk(
   }
 );
 
+export const deleteProduct = createAsyncThunk(
+  "products/delete",
+  async (payload, { dispatch }) => {
+    console.log("deletieng", payload);
+    const url = ENP_PRODUCT + "/" + payload.id;
+    const response = await axios.delete(url);
+    dispatch(deleteByName(payload.title));
+    return response.data;
+  }
+);
+
 export const productSlice = createSlice({
   name: "products",
   initialState,
   reducers: {
-    deleteWithId: (state, action) => {
-      const productId = action.payload;
+    deleteByName: (state, action) => {
+      const name = action.payload;
       //   state.products = state.products.filter((i) => i.id !== productsId);
       //   return [];
-      console.log("tigger me", productId);
-      productAdapter.removeOne(state, productId);
+      console.log("deleteing product", name);
+      productAdapter.removeOne(state, name);
     },
   },
   extraReducers: (builder) => {
@@ -60,7 +71,7 @@ export const productSlice = createSlice({
   },
 });
 // Action creators are generated for each case reducer function
-export const { set, get, deleteWithId } = productSlice.actions;
+export const { set, get, deleteByName } = productSlice.actions;
 export const { selectById: selectProductById, selectAll: selectAllProducts } =
   productAdapter.getSelectors((state) => state.products);
 

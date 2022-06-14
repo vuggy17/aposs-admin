@@ -34,7 +34,8 @@ export default function CreateProduct() {
   const onFinish = (formData) => {
     const { upload, ...value } = formData;
 
-    axios.post(ENP_PRODUCT, value).then((res) => {
+    const url = ENP_PRODUCT + "/with-default-set";
+    axios.post(url, value).then((res) => {
       const productId = res.data;
 
       const requests = upload.map((file, index) => {

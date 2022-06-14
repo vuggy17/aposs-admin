@@ -14,7 +14,7 @@ export function Login() {
       .then(({ data: { accessToken, refreshToken } }) => {
         LocalStorageService.setAuthToken(accessToken);
         LocalStorageService.setRefreshToken(refreshToken);
-        navigation(-1);
+        navigation("/");
       });
   };
 
