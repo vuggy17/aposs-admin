@@ -43,7 +43,10 @@ export default function EditProduct() {
     // axios.post(ENP_PRODUCT, value).then((res) => {
     //   const productId = res.data;
 
-    const requests = upload.map((file, index) => {
+    const requests = upload.map(async (file, index) => {
+      if (file?.url && file?.uid) {
+        await axios.delete(ENP_PRODUCT + "/image/" + file.uid);
+      }
       const url = file.response?.secure_url || file.url;
       return axios.post(ENP_PRODUCT + "/image", {
         productId: location.state.id,
