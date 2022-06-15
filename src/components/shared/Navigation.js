@@ -9,6 +9,9 @@ import {
   UserOutlined,
   UploadOutlined,
   VideoCameraOutlined,
+  HddOutlined,
+  SelectOutlined,
+  GroupOutlined,
 } from "@ant-design/icons";
 import { Link, useLocation } from "react-router-dom";
 import {
@@ -34,29 +37,20 @@ export default function Navigation() {
   return (
     <>
       <Menu theme="dark" mode="inline" selectedKeys={[highlightedMenuId]}>
-        <Menu.Item key={DEFAULT_ROUTE} icon={<UserOutlined />}>
+        <Menu.Item key={DEFAULT_ROUTE} icon={<BarChartOutlined />}>
           <Link to={DEFAULT_ROUTE}>Dashboard</Link>
         </Menu.Item>
-        <Menu.Item key={CATEGORY_MANAGEMENT} icon={<VideoCameraOutlined />}>
-          <Link to={CATEGORY_MANAGEMENT}>Categories</Link>
-        </Menu.Item>
-        <Menu.Item key={PRODUCT_MANAGEMENT} icon={<UploadOutlined />}>
-          <Link to={PRODUCT_MANAGEMENT}>Products</Link>
-        </Menu.Item>
-        <Menu.Item key={ORDER_MANAGEMENT} icon={<BarChartOutlined />}>
+        <Menu.Item key={ORDER_MANAGEMENT} icon={<ShopOutlined />}>
           <Link to={ORDER_MANAGEMENT}>Order</Link>
         </Menu.Item>
-        <Menu.Item key={INDUSTRY_MANAGEMENT} icon={<CloudOutlined />}>
+        <Menu.Item key={PRODUCT_MANAGEMENT} icon={<SelectOutlined />}>
+          <Link to={PRODUCT_MANAGEMENT}>Products</Link>
+        </Menu.Item>
+        <Menu.Item key={CATEGORY_MANAGEMENT} icon={<HddOutlined />}>
+          <Link to={CATEGORY_MANAGEMENT}>Categories</Link>
+        </Menu.Item>
+        <Menu.Item key={INDUSTRY_MANAGEMENT} icon={<GroupOutlined />}>
           <Link to={INDUSTRY_MANAGEMENT}>Industries</Link>
-        </Menu.Item>
-        <Menu.Item key="6" icon={<AppstoreOutlined />}>
-          nav 6
-        </Menu.Item>
-        <Menu.Item key="7" icon={<TeamOutlined />}>
-          nav 7
-        </Menu.Item>
-        <Menu.Item key="8" icon={<ShopOutlined />}>
-          nav 8
         </Menu.Item>
       </Menu>
     </>
