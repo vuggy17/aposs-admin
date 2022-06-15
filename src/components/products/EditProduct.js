@@ -38,11 +38,10 @@ export default function EditProduct() {
   const categories = useSelector(selectAllCategories);
 
   const onFinish = (formData) => {
+    const hide = message.loading("Applying changes", 0);
     const { upload, ...value } = formData;
 
-    // axios.post(ENP_PRODUCT, value).then((res) => {
-    //   const productId = res.data;
-
+    setloading(true);
     const requests = upload.map(async (file, index) => {
       if (file?.url && file?.uid) {
         await axios.delete(ENP_PRODUCT + "/image/" + file.uid);
@@ -55,8 +54,14 @@ export default function EditProduct() {
       });
     });
     Promise.all(requests)
-      .then((res) => navigate(-1))
-      .catch((err) => console.log(err));
+      .then((res) => {
+        navigate(-1);
+      })
+      .catch((err) => console.log(err))
+      .finally(() => {
+        setloading(false);
+        hide();
+      });
 
     // console.log(formData);
   };
@@ -75,9 +80,10 @@ export default function EditProduct() {
   };
 
   const onRemoveimg = (img) => {
-    axios
-      .delete(ENP_PRODUCT + "/image/" + img.uid)
-      .then((res) => message.success("Picture deleted"));
+    if (!img["originFileObj"])
+      axios
+        .delete(ENP_PRODUCT + "/image/" + img.uid)
+        .then((res) => message.success("Picture deleted"));
   };
   const normFile = (e) => {
     if (Array.isArray(e)) {
@@ -212,6 +218,7 @@ export default function EditProduct() {
                   type="primary"
                   className="mt-6"
                   size="large"
+                  loading={loading}
                   onClick={() => form.submit()}
                 >
                   Apply change

@@ -18,7 +18,18 @@ export class Home extends Component {
             bottom: 0,
           }}
         >
-          <div className="h-8 m-4 bg-gray-600">logo</div>
+          <div className="h-8 m-4 flex gap-2 items-center">
+            <img
+              src="../store.png"
+              className="object-contain"
+              width={50}
+              height={50}
+            />
+            <p className="text-white align-center font-semibold pt-4">
+              {" "}
+              Feng shui admin
+            </p>
+          </div>
           <Navigation />
         </Sider>
         <Layout className="bg-gray-400" style={{ marginLeft: 200 }}>

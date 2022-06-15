@@ -34,6 +34,8 @@ export default function CreateProduct() {
   const onFinish = (formData) => {
     const { upload, ...value } = formData;
 
+    setloading(true);
+    const hide = message.loading("Creating product", 0);
     const url = ENP_PRODUCT + "/with-default-set";
     axios.post(url, value).then((res) => {
       const productId = res.data;
@@ -48,7 +50,11 @@ export default function CreateProduct() {
       });
       Promise.all(requests)
         .then((res) => navigate(-1))
-        .catch((err) => console.log(err));
+        .catch((err) => console.log(err))
+        .finally(() => {
+          setloading(false);
+          hide();
+        });
     });
   };
 
@@ -194,6 +200,7 @@ export default function CreateProduct() {
                 className="mt-6"
                 size="large"
                 onClick={() => form.submit()}
+                loading={loading}
               >
                 Create product
               </Button>

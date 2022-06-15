@@ -133,6 +133,9 @@ export default function Products() {
                   rating={rating}
                   image={image}
                   purchased={purchased}
+                  onDeleteProduct={() => {
+                    dispatch(deleteProduct({ id, name }));
+                  }}
                 />
               </Col>
             ))
@@ -155,12 +158,9 @@ export function ProductCard({
   purchased,
   price,
   rating,
+  onDeleteProduct,
 }) {
   const dispatch = useDispatch();
-  const onDeleteProduct = () => {
-    console.log("asdf");
-    dispatch(deleteProduct({ id, title }));
-  };
   return (
     <Card
       hoverable={false}

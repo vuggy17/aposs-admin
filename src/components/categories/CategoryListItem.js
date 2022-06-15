@@ -48,8 +48,12 @@ export function CategoryListItem({ index, item, setEditItem }) {
     >
       <List.Item.Meta
         avatar={<Avatar src={item.image} />}
-        title={<Link to={`${pathname}/${item.name}`}>{item.name}</Link>}
-        description="Some fancy description necessitatibus recusandae dignissimos ut itaque explicabo soluta."
+        title={
+          <Link to={`${pathname}/${item.name}`} state={{ id: item.id }}>
+            {item.name}
+          </Link>
+        }
+        // description="Some fancy description necessitatibus recusandae dignissimos ut itaque explicabo soluta."
       />
     </List.Item>
   );

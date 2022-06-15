@@ -1,6 +1,6 @@
 import Breadcrumb from "components/shared/Breadcrumb";
-import React, { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { CATEGORY_MANAGEMENT } from "routes/route.config";
 import { EditOutlined } from "@ant-design/icons";
 import { Col, message, notification, Row, Tooltip } from "antd";
@@ -20,7 +20,10 @@ export default function Category() {
   const { categoryName } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { image, name, id, products } =
+  const location = useLocation();
+  const [products, setProducts] = useState([]);
+  console.log("state", location.state);
+  const { image, name, id } =
     useSelector((state) => selectCategoryById(state, categoryName)) || {};
 
   const deleteProduct = (prodId) => {
@@ -28,20 +31,19 @@ export default function Category() {
       notification.success({
         message: "Product deleted",
       });
-      dispatch(
-        categoryUpdated({
-          id: name,
-          changes: {
-            products: products.filter((p) => p.id !== prodId),
-          },
-        })
-      );
+      const updatedProduct = products.filter((p) => p.id != prodId);
+      setProducts([...updatedProduct]);
     });
   };
-  console.log(products);
   useEffect(() => {
-    dispatch(getAllCategories());
+    const getInitialData = async () => {
+      dispatch(getAllCategories());
+      const response = await axios.get("products/kind/" + location.state.id);
+      setProducts(response.data.content);
+    };
+    getInitialData();
   }, []);
+
   return (
     <>
       <div className="bg-white p-9 pl-6 pt-4">
@@ -109,7 +111,6 @@ export default function Category() {
                 <Col className="gutter-row" span={6} key={item.id}>
                   <ProductCard
                     title={item.name}
-                    description="Some fancy description necessitatibus recusandae dignissimos ut itaque explicabo soluta."
                     onEditPressed={() =>
                       navigate(
                         `/${CATEGORY_MANAGEMENT}/${categoryName}/${item.name}`,
@@ -121,7 +122,7 @@ export default function Category() {
                     image={item.image}
                     id={item.id}
                     categoryId={name}
-                    handleDelete={deleteProduct}
+                    onDeleteProduct={() => deleteProduct(item.id)}
                   />
                 </Col>
               ))}
