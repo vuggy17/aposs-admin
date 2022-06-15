@@ -37,7 +37,7 @@ export default function DonutSaleCategory({ data }) {
     innerRadius: 0.64,
     meta: {
       value: {
-        formatter: (v) => `${v} vnd`,
+        formatter: (v) => `${v} product`,
       },
     },
     label: {
@@ -70,8 +70,8 @@ export default function DonutSaleCategory({ data }) {
         customHtml: (container, view, datum, data) => {
           const { width } = container.getBoundingClientRect();
           const text = datum
-            ? `${datum.value} vnd`
-            : `${data.reduce((r, d) => r + d.value, 0)} vnd`;
+            ? `${datum.value} product`
+            : `${data.reduce((r, d) => r + d.value, 0)} product`;
           return renderStatistic(width, text, {
             fontSize: 32,
           });

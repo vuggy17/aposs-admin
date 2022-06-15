@@ -78,11 +78,7 @@ export default function Category() {
             <Tooltip title="Click to start editing" placement="rightTop">
               <span>
                 <EditableContainer>
-                  <EditableContainer.Text
-                    value="Lorem, ipsum dolor sit amet temporibus, sunt qui asperiores,
-                voluptates beatae est. Sunt pariatur, exercitationem nisi magnam
-                vel porro."
-                  />
+                  <EditableContainer.Text value="" />
                 </EditableContainer>
               </span>
             </Tooltip>
